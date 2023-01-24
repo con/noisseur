@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "noisseur"
+version = "1.0.1"
+description = ""
+authors = ["Vadim Melnik <vmelnik@docsultant.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Flask = "2.2.2"
+pytesseract = "0.3.10"
+pyvips = "2.2.1"
+beautifulsoup4 = "4.11.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "6.2.5"
+
+[build-system]
+requires = ["poetry>=1.0"]
+build-backend = "poetry.masonry.api"
+
+[tool.poetry.scripts]
+# This is where we specify where our app entry point(s) is by assigning
+#function within modules to the name of a script to be run.
+#The example run = "wsgi:main" is specifying that we want to create a command called "run," which will look in wsgi.py for a function called main(). With this set, we can then launch our app via the Poetry CLI by typing
+#poetry run .
+
+# use syntax like listed below from command line:
+#        poetry run <name>
+# e.g.:
+#        poetry run app
+
+app = "noisseur.app:main"
