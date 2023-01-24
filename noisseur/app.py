@@ -25,7 +25,7 @@ def create_flask_app() -> Flask:
 
     with app.app_context():
 
-        logger.debug("Registering blueprint: admin ...")
+        logger.debug("Registering blueprint: api ...")
         app.register_blueprint(api.api_bp, url_prefix='/api')
 
         logger.debug("Registering blueprint: test ...")
