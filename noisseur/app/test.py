@@ -1,6 +1,10 @@
+import os
 import logging
 from datetime import datetime
 import socket
+from noisseur.core import app_config
+from noisseur.ocr import TesseractOcr
+from noisseur.imgproc import ImageProcessor
 
 from flask import render_template, make_response, \
     jsonify, request, Markup, Blueprint
@@ -33,5 +37,70 @@ def ping():
     res["host"] = socket.gethostname()
     res["ts"] = str(datetime.now())
     return make_response(jsonify(res), 200, headers)
+
+
+def response_ok(res, mimetype):
+    response = make_response(res, 200)
+    response.mimetype = mimetype
+    return response
+
+
+@test_bp.route('/imgproc_chain', methods=['GET', 'POST'])
+def imgproc_chain():
+    logger.debug("imgproc_chain")
+    path = request.form["path"]
+    logger.debug(f"path={path}")
+    path2 = os.path.join(app_config.ROOT_PATH, path);
+    logger.debug(f"path2={path2}")
+    chain = request.form["chain"]
+    logger.debug(f"chain={chain}")
+    ip = ImageProcessor()
+    data =ip.chain(path2, chain)
+    return response_ok(data, ip.OUT_MIME_TYPE)
+
+
+@test_bp.route('/ocr_text', methods=['GET', 'POST'])
+def ocr_text():
+    logger.debug("ocr_text")
+    path = request.form["path"]
+    logger.debug(f"path={path}")
+    path2 = os.path.join(app_config.ROOT_PATH, path);
+    logger.debug(f"path2={path2}")
+    chain = request.form["chain"]
+    logger.debug(f"chain={chain}")
+    t = TesseractOcr()
+    res = t.ocr_text(path2, chain)
+    logger.debug(f"res={res}")
+    return response_ok(res, "text/plain")
+
+
+@test_bp.route('/ocr_hocr', methods=['GET', 'POST'])
+def ocr_hocr():
+    logger.debug("ocr_hocr")
+    path = request.form["path"]
+    logger.debug(f"path={path}")
+    path2 = os.path.join(app_config.ROOT_PATH, path);
+    logger.debug(f"path2={path2}")
+    chain = request.form["chain"]
+    logger.debug(f"chain={chain}")
+    t = TesseractOcr()
+    res = t.ocr_hocr(path2, chain)
+    res2 = "\n".join([line.text for line in res.lines])
+    res2 = res2 + "\n\n##############################\n\n" + res.hocr
+    return response_ok(res2, "application/x-view-source")
+
+
+@test_bp.route('/tesseract_version', methods=['GET', 'POST'])
+def tesseract_version():
+    logger.debug("tesseract_version")
+    t = TesseractOcr()
+    return response_ok(t.tesseract_version(), "text/plain")
+
+
+@test_bp.route('/vips_version', methods=['GET', 'POST'])
+def vips_version():
+    logger.debug("vips_version")
+    p = ImageProcessor()
+    return response_ok(p.vips_version(), "text/plain")
 
 

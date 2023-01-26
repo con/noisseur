@@ -3,6 +3,9 @@
 
 <body>
 
+    <h1>Common</h1>
+    <hr>
+
     <h3>hw</h3>
     <form method="post" action="hw">
         <input type="hidden" name="action" value="hw"/>
@@ -28,6 +31,92 @@
             </tr>
         </table>
     </form><br>
+
+    <h1>OCR</h1>
+    <hr>
+
+    <h3>imgproc</h3>
+    <form method="post" action="imgproc_chain">
+        <input type="hidden" name="action" value="imgproc_chain"/>
+        <table>
+            <tr>
+                <td>Image:</td>
+                <td><input name="path" style="width:800px;" type="text" value="data/s_001.png" /></td>
+            </tr>
+            <tr>
+                <td>Image Processor Chain:<br>
+                    ( bw|sharpen|invert|scale(f)|border(20)|threshold(140)|rotate(90) ):</td>
+                <td><input name="chain" style="width:800px;" type="text" value="scale(3.1)|sharpen|threshold(140)|bw|border(20)" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Execute" /></td>
+            </tr>
+        </table>
+    </form><br>
+
+    <h3>ocr_text</h3>
+    <form method="post" action="ocr_text">
+        <input type="hidden" name="action" value="ocr_text"/>
+        <table>
+            <tr>
+                <td>Image:</td>
+                <td><input name="path" style="width:800px;" type="text" value="data/s_001.png" /></td>
+            </tr>
+            <tr>
+                <td>Image Processor Chain:<br>
+                    ( bw|sharpen|invert|scale(f)|border(20)|threshold(140)|rotate(90) ):</td>
+                <td><input name="chain" style="width:800px;" type="text" value="" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Execute" /></td>
+            </tr>
+        </table>
+    </form><br>
+
+    <h3>ocr_hocr</h3>
+    <form method="post" action="ocr_hocr">
+        <input type="hidden" name="action" value="ocr_hocr"/>
+        <table>
+            <tr>
+                <td>Image:</td>
+                <td><input name="path" style="width:800px;" type="text" value="data/s_001.png" /></td>
+            </tr>
+            <tr>
+                <td>Image Processor Chain:<br>
+                    ( bw|sharpen|invert|scale(f)|border(20)|threshold(140)|rotate(90) ):</td>
+                <td><input name="chain" style="width:800px;" type="text" value="" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Execute" /></td>
+            </tr>
+        </table>
+    </form><br>
+
+    <h3>tesseract_version</h3>
+    <form method="post" action="tesseract_version">
+        <input type="hidden" name="action" value="tesseract_version"/>
+        <table>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Execute" /></td>
+            </tr>
+        </table>
+    </form><br>
+
+    <h3>vips_version</h3>
+    <form method="post" action="vips_version">
+        <input type="hidden" name="action" value="vips_version"/>
+        <table>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Execute" /></td>
+            </tr>
+        </table>
+    </form><br>
+
 
 </body>
 </html>

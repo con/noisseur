@@ -42,7 +42,7 @@ def create_flask_app() -> Flask:
 def main():
     app = create_flask_app()
     logger.debug("Running server ...")
-    app.run(use_reloader=False)
+    app.run(use_reloader=False, port=app_config.flask.get("PORT"))
 
 
 if __name__ == "__main__":
