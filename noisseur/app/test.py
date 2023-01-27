@@ -1,6 +1,7 @@
 import os
 import logging
 from datetime import datetime
+import time
 import socket
 from noisseur.core import app_config
 from noisseur.ocr import TesseractOcr
@@ -55,7 +56,10 @@ def imgproc_chain():
     chain = request.form["chain"]
     logger.debug(f"chain={chain}")
     ip = ImageProcessor()
+    dt = time.time()
     data =ip.chain(path2, chain)
+    dt = int((time.time() - dt)*1000)
+    logger.debug("dt={}ms".format(dt))
     return response_ok(data, ip.OUT_MIME_TYPE)
 
 
@@ -69,9 +73,12 @@ def ocr_text():
     chain = request.form["chain"]
     logger.debug(f"chain={chain}")
     t = TesseractOcr()
+    dt = time.time()
     res = t.ocr_text(path2, chain)
+    dt = int((time.time() - dt)*1000)
+    logger.debug("dt={}ms".format(dt))
     logger.debug(f"res={res}")
-    return response_ok(res, "text/plain")
+    return response_ok(res + "\n\n##############################\n\ndt={}ms".format(dt), "text/plain")
 
 
 @test_bp.route('/ocr_hocr', methods=['GET', 'POST'])
@@ -84,10 +91,14 @@ def ocr_hocr():
     chain = request.form["chain"]
     logger.debug(f"chain={chain}")
     t = TesseractOcr()
-    res = t.ocr_hocr(path2, chain)
-    res2 = "\n".join([line.text for line in res.lines])
-    res2 = res2 + "\n\n##############################\n\n" + res.hocr
-    return response_ok(res2, "application/x-view-source")
+    dt = time.time()
+    doc = t.ocr_hocr(path2, chain)
+    dt = int((time.time() - dt)*1000)
+    logger.debug("dt={}ms".format(dt))
+    text = "\n".join([line.text for line in doc.lines])
+    res = text + "\n\n##############################\n\ndt={}ms".format(dt) + \
+          "\n\n##############################\n\n" + doc.hocr
+    return response_ok(res, "application/x-view-source")
 
 
 @test_bp.route('/tesseract_version', methods=['GET', 'POST'])

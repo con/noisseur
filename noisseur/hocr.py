@@ -81,6 +81,12 @@ class HocrParser:
         def add_word(self, o):
             self.words.append(o)
 
+    class OcrHeader(OcrLine):
+        pass
+
+    class OcrCaption(OcrLine):
+        pass
+
     class OcrxWord(OcrNode):
         def __init__(self):
             self.x_wconf = 0.0  # float
@@ -163,6 +169,50 @@ class HocrParser:
             owner.add_glyph(o)
             line.add_glyph(o)
 
+    def parse_caption(self, doc: Document, owner: OcrPar, node: bs4.Tag) -> None:
+        pars = node.find_all(class_="ocr_caption")
+        for node2 in pars:
+            o = HocrParser.OcrCaption()
+            self.parse_node(o, node2)
+            o.baseline = self.parse_baseline(o)
+            o.x_ascenders = self.parse_float_tag(o, "x_ascenders")
+            o.x_descenders = self.parse_float_tag(o, "x_descenders")
+            o.x_size = self.parse_float_tag(o, "x_size")
+            o.lang = node2.get("lang")
+            self.parse_word(doc, o, node2)
+
+            lst = []
+            for w in o.words:
+                if len(w.text) > 0:
+                    lst.append(w.text)
+
+            o.text = " ".join(lst)
+
+            owner.add_line(o)
+            doc.add_line(o)
+
+    def parse_header(self, doc: Document, owner: OcrPar, node: bs4.Tag) -> None:
+        pars = node.find_all(class_="ocr_header")
+        for node2 in pars:
+            o = HocrParser.OcrHeader()
+            self.parse_node(o, node2)
+            o.baseline = self.parse_baseline(o)
+            o.x_ascenders = self.parse_float_tag(o, "x_ascenders")
+            o.x_descenders = self.parse_float_tag(o, "x_descenders")
+            o.x_size = self.parse_float_tag(o, "x_size")
+            o.lang = node2.get("lang")
+            self.parse_word(doc, o, node2)
+
+            lst = []
+            for w in o.words:
+                if len(w.text) > 0:
+                    lst.append(w.text)
+
+            o.text = " ".join(lst)
+
+            owner.add_line(o)
+            doc.add_line(o)
+
     def parse_line(self, doc: Document, owner: OcrPar, node: bs4.Tag) -> None:
         pars = node.find_all(class_="ocr_line")
         for node2 in pars:
@@ -234,6 +284,8 @@ class HocrParser:
             o = HocrParser.OcrPar()
             self.parse_node(o, node2)
             o.lang = node2.get("lang")
+            self.parse_caption(doc, o, node2)
+            self.parse_header(doc, o, node2)
             self.parse_line(doc, o, node2)
             owner.add_par(o)
 

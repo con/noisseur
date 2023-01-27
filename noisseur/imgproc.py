@@ -55,11 +55,16 @@ class ImageProcessor:
                 assert "Unsupported, cmd.length="+cmd.length
         return res
 
-    def invert(self, path, width: int = 20):
-        logger.debug("invert(...,{})".format(width))
-        width = int(width)
+    def invert(self, path):
+        logger.debug("invert(...)")
         image = self.vips_load(path)
-        image = pyvips.Image.invert(image)
+        if image.hasalpha():
+            alpha = image[-1]
+            image = image[0:image.bands - 1]
+            image = pyvips.Image.invert(image)
+            image = image.bandjoin(alpha)
+        else:
+            image = pyvips.Image.invert(image)
         return self.to_buffer(image)
 
     def rotate(self, path, angle):
@@ -79,6 +84,12 @@ class ImageProcessor:
         logger.debug("sharpen(...)")
         image = self.vips_load(path)
         image = image.sharpen()
+        return self.to_buffer(image)
+
+    def top(self, path, height):
+        logger.debug("top(...,{})".format(height))
+        image = self.vips_load(path)
+        image = image.crop(0, 0, image.width, height)
         return self.to_buffer(image)
 
     def threshold(self, path, threshold):
