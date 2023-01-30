@@ -10,6 +10,7 @@ Flask = "2.2.2"
 pytesseract = "0.3.10"
 pyvips = "2.2.1"
 beautifulsoup4 = "4.11.1"
+dataclasses_json = "0.5.7"
 
 [tool.poetry.dev-dependencies]
 pytest = "6.2.5"

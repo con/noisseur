@@ -1,5 +1,21 @@
 <html>
-<title>Test noisseur</title>
+    <head>
+        <title>Test noisseur</title>
+        <style>
+            INPUT[type=text] {
+        	    width: 600px
+            }
+
+            INPUT[type=submit] {
+        	    width: 80px
+            }
+
+            .flabel {
+                width : 250px
+            }
+        </style>
+
+    </head>
 
 <body>
 
@@ -11,7 +27,7 @@
         <input type="hidden" name="action" value="hw"/>
         <table>
             <tr>
-                <td></td>
+                <td class=flabel></td>
                 <td><input type="submit" value="hw" /></td>
             </tr>
         </table>
@@ -22,7 +38,7 @@
         <input type="hidden" name="action" value="ping"/>
         <table>
             <tr>
-                <td>Text:</td>
+                <td class=flabel>Text:</td>
                 <td><input type="text" name="text1" value="zzz"/></td>
             </tr>
             <tr>
@@ -40,12 +56,12 @@
         <input type="hidden" name="action" value="imgproc_chain"/>
         <table>
             <tr>
-                <td>Image:</td>
+                <td class=flabel>Image:</td>
                 <td><input name="path" style="width:800px;" type="text" value="data/s_001.png" /></td>
             </tr>
             <tr>
                 <td>Image Processor Chain:<br>
-                    ( bw|sharpen|invert|scale(f)|border(20)|threshold(140)|rotate(90) ):</td>
+                    ( bw|sharpen|invert|scale(f)| border(20)|threshold(140)| rotate(90) ):</td>
                 <td><input name="chain" style="width:800px;" type="text" value="scale(3.1)|sharpen|threshold(140)|bw|border(20)" /></td>
             </tr>
             <tr>
@@ -60,12 +76,12 @@
         <input type="hidden" name="action" value="ocr_text"/>
         <table>
             <tr>
-                <td>Image:</td>
+                <td class=flabel>Image:</td>
                 <td><input name="path" style="width:800px;" type="text" value="data/s_001.png" /></td>
             </tr>
             <tr>
                 <td>Image Processor Chain:<br>
-                    ( bw|sharpen|invert|scale(f)|border(20)|threshold(140)|rotate(90) ):</td>
+                    ( bw|sharpen|invert|scale(f)| border(20)|threshold(140)| rotate(90) ):</td>
                 <td><input name="chain" style="width:800px;" type="text" value="" /></td>
             </tr>
             <tr>
@@ -80,12 +96,12 @@
         <input type="hidden" name="action" value="ocr_hocr"/>
         <table>
             <tr>
-                <td>Image:</td>
+                <td class=flabel>Image:</td>
                 <td><input name="path" style="width:800px;" type="text" value="data/s_001.png" /></td>
             </tr>
             <tr>
                 <td>Image Processor Chain:<br>
-                    ( bw|sharpen|invert|scale(f)|border(20)|threshold(140)|rotate(90) ):</td>
+                    ( bw|sharpen|invert|scale(f)| border(20)|threshold(140)| rotate(90) ):</td>
                 <td><input name="chain" style="width:800px;" type="text" value="" /></td>
             </tr>
             <tr>
@@ -95,12 +111,71 @@
         </table>
     </form><br>
 
+    <h3>ocr_hocr_visualize</h3>
+    <form method="post" action="ocr_hocr_visualize">
+        <input type="hidden" name="action" value="ocr_hocr_visualize"/>
+        <table>
+            <tr>
+                <td class=flabel>Image:</td>
+                <td><input name="path" type="text" value="data/s_001.png" /></td>
+            </tr>
+            <tr>
+                <td class=flabel>Image Processor Chain:</td>
+                <td><input name="chain" type="text" value="" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Execute" /></td>
+            </tr>
+        </table>
+    </form><br>
+
+    <h3>ocr_screen</h3>
+    <form method="post" action="ocr_screen">
+        <input type="hidden" name="action" value="ocr_screen"/>
+        <table>
+            <tr>
+                <td class=flabel>Image:</td>
+                <td><input name="path" style="width:800px;" type="text" value="data/s_001.png" /></td>
+            </tr>
+            <tr>
+                <td>Image Processor Chain:<br>
+                    ( bw|sharpen|invert|scale(f)| border(20)|threshold(140)| rotate(90) ):</td>
+                <td><input name="chain" style="width:800px;" type="text" value="" /></td>
+            </tr>
+            <tr>
+                <td>Scale:</td>
+                <td><input name="scale" style="width:800px;" type="text" value="1.0" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Execute" /></td>
+            </tr>
+        </table>
+    </form><br>
+
+    <h3>model_visualize</h3>
+    <form method="post" action="model_visualize">
+        <input type="hidden" name="action" value="model_visualize"/>
+        <table>
+            <tr>
+                <td class=flabel>Model ID:</td>
+                <td><input name="model_id" style="width:800px;" type="text" value="model007" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Execute" /></td>
+            </tr>
+        </table>
+    </form><br>
+
+
     <h3>tesseract_version</h3>
     <form method="post" action="tesseract_version">
         <input type="hidden" name="action" value="tesseract_version"/>
         <table>
             <tr>
-                <td></td>
+                <td class=flabel></td>
                 <td><input type="submit" value="Execute" /></td>
             </tr>
         </table>
@@ -111,7 +186,7 @@
         <input type="hidden" name="action" value="vips_version"/>
         <table>
             <tr>
-                <td></td>
+                <td class=flabel></td>
                 <td><input type="submit" value="Execute" /></td>
             </tr>
         </table>

@@ -1,0 +1,27 @@
+screens:
+  - type: "patient-registration"
+    data:
+      last_name: "O0O0o0o0O0O"
+      first_name: First Name GHJKL;:"'|
+      title: ""
+      patient_id: "0123456789QWERTUIOP{}ASDF"
+      date_of_birth: "1/2/1922"
+      sex: "male"
+      age: 101
+      age_unit: "years"
+      # note: on this display it is selected metric
+      # so fields encode metric units, if not metric
+      # then would be
+      height: 100.00
+      height_unit: cm
+      weight: 100.00
+      weight_unit: kg
+      metric: True
+      additional_info: Additional info we do not care
+      accession_no: "1234567890 OOO"
+      request_id: ""
+      patient_position: "Head First - Supine"
+      institution_name: dartmouth_brain_imaging_cente
+      performing_physician: "Marvin Maechler"
+      operator: "Mary Kieseler"
+

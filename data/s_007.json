@@ -1,0 +1,98 @@
+{
+    "id": "model007",
+    "description": "Model One",
+    "image_path": "data/s_007.png",
+    "form": {
+        "id": "form1",
+        "description": "Patient Registration Form",
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "right": 1031,
+            "bottom": 710
+        },
+        "items": [
+            {
+                "id": "title",
+                "description": null,
+                "rect": {
+                    "left": 0,
+                    "top": 0,
+                    "right": 170,
+                    "bottom": 30
+                },
+                "type": "caption",
+                "text": [
+                    "Patient Registration",
+                    "tient Registration"
+                ],
+                "re": null,
+                "data_field": null,
+                "data_type": null,
+                "control_point": "top_left"
+            },
+            {
+                "id": "iso",
+                "description": null,
+                "rect": {
+                    "left": 878,
+                    "top": 692,
+                    "right": 931,
+                    "bottom": 708
+                },
+                "type": "caption",
+                "text": [
+                    "[ISO_IR",
+                    "ISO_IR",
+                    "ISO IR"
+                ],
+                "re": null,
+                "data_field": null,
+                "data_type": null,
+                "control_point": "bottom_right"
+            },
+            {
+                "id": "lastNameLabel",
+                "description": null,
+                "rect": {
+                    "left": 130,
+                    "top": 60,
+                    "right": 226,
+                    "bottom": 86
+                },
+                "type": "label",
+                "text": [
+                    "Last name"
+                ],
+                "re": null,
+                "data_field": null,
+                "data_type": null,
+                "control_point": null
+            },
+            {
+                "id": "lastNameValue",
+                "description": null,
+                "rect": {
+                    "left": 230,
+                    "top": 60,
+                    "right": 490,
+                    "bottom": 86
+                },
+                "type": "text",
+                "text": null,
+                "re": null,
+                "data_field": "last_name",
+                "data_type": "str",
+                "control_point": null
+            }
+        ],
+        "relations": [
+            {
+                "id": "lastNameRel",
+                "description": null,
+                "from_id": "lastNameLabel",
+                "to_id": "lastNameValue"
+            }
+        ]
+    }
+}

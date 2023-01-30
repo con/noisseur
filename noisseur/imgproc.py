@@ -67,6 +67,7 @@ class ImageProcessor:
             image = pyvips.Image.invert(image)
         return self.to_buffer(image)
 
+
     def rotate(self, path, angle):
         logger.debug(f"rotate(.., angle={angle})")
         image = self.vips_load(path)

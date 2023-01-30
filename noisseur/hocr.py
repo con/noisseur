@@ -14,12 +14,16 @@ class HocrParser:
             self.lines = []
             self.pages = []
             self.hocr = None  # str
+            self.words = []
 
         def add_page(self, page) -> None:
             self.pages.append(page)
 
         def add_line(self, line) -> None:
             self.lines.append(line)
+
+        def add_word(self, word) -> None:
+            self.words.append(word)
 
     class OcrNode:
         def __init__(self):
@@ -298,6 +302,7 @@ class HocrParser:
             o.text = str(node2.get_text()).replace("\n", "").replace(" ", "")
             self.parse_cinfo(doc, owner, o, node2)
             owner.add_word(o)
+            doc.add_word(o)
 
     def parse_int_tag(self, o: OcrNode, name: str) -> int:
         r = self.parse_str_tag(o, name)
