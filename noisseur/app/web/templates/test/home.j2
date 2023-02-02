@@ -130,6 +130,21 @@
         </table>
     </form><br>
 
+    <h3>ocr_caption</h3>
+    <form method="post" action="ocr_caption">
+        <input type="hidden" name="action" value="ocr_caption"/>
+        <table>
+            <tr>
+                <td class=flabel>Image:</td>
+                <td><input name="path" style="width:800px;" type="text" value="data/s_001.png" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Execute" /></td>
+            </tr>
+        </table>
+    </form><br>
+
     <h3>ocr_screen</h3>
     <form method="post" action="ocr_screen">
         <input type="hidden" name="action" value="ocr_screen"/>
@@ -154,16 +169,44 @@
         </table>
     </form><br>
 
+    <h3>model_generate</h3>
+    <form method="post" action="model_generate">
+        <input type="hidden" name="action" value="model_generate"/>
+        <table>
+            <tr>
+                <td class=flabel></td>
+                <td><input type="submit" value="Execute" /></td>
+            </tr>
+        </table>
+    </form><br>
+
     <h3>model_visualize</h3>
     <form method="post" action="model_visualize">
         <input type="hidden" name="action" value="model_visualize"/>
         <table>
             <tr>
-                <td class=flabel>Model ID:</td>
-                <td><input name="model_id" style="width:800px;" type="text" value="model007" /></td>
+                <td class=flabel>Screen Type:</td>
+                <td>
+                    <select id="screen_type" style="width:800px;" name="screen_type">
+                    {% for model in model_factory.get_service().models %}
+                        <option>{{ model.screen_type }}</option>
+                    {% endfor %}
+                    </select>
+                </td>
             </tr>
             <tr>
                 <td></td>
+                <td><input type="submit" value="Execute" /></td>
+            </tr>
+        </table>
+    </form><br>
+
+    <h3>test_font</h3>
+    <form method="post" action="test_font">
+        <input type="hidden" name="action" value="test_font"/>
+        <table>
+            <tr>
+                <td class=flabel></td>
                 <td><input type="submit" value="Execute" /></td>
             </tr>
         </table>

@@ -1,0 +1,38 @@
+{
+    "id": "model010",
+    "description": "Dot Cockpit Program Editor Screen",
+    "image_path": "data/s_010.png",
+    "screen_type": "dot-cockpit-editor",
+    "form": {
+        "id": "form1",
+        "description": "Dot Cockpit Editor Form",
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "right": 948,
+            "bottom": 799
+        },
+        "items": [
+            {
+                "id": "title",
+                "description": null,
+                "rect": {
+                    "left": 0,
+                    "top": 0,
+                    "right": 264,
+                    "bottom": 27
+                },
+                "type": "caption",
+                "text": [
+                    "Dot Cockpit - Program Editor"
+                ],
+                "re": null,
+                "data_field": null,
+                "data_type": null,
+                "data_format": null,
+                "control_point": "top_left"
+            }
+        ],
+        "relations": []
+    }
+}

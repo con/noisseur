@@ -1,12 +1,17 @@
+import json
 import os
+import io
 import logging
 from datetime import datetime
 import time
 import socket
+from PIL import Image, ImageOps, ImageDraw, ImageFont, FontFile
 from noisseur.core import app_config
 from noisseur.ocr import TesseractOcr
 from noisseur.imgproc import ImageProcessor
 from noisseur.model import ModelService, ModelFactory
+from noisseur.model_prototype import generate_models
+
 
 from flask import render_template, make_response, \
     jsonify, request, Markup, Blueprint
@@ -20,7 +25,7 @@ test_bp = Blueprint('test_bp', __name__)
 @test_bp.route('/')
 def home():
     logger.debug("home")
-    return render_template('test/home.j2', name1='Flask')
+    return render_template('test/home.j2', name1='Flask', model_factory=ModelFactory)
 
 
 @test_bp.route('/hw', methods=['GET', 'POST'])
@@ -63,14 +68,21 @@ def imgproc_chain():
     logger.debug("dt={}ms".format(dt))
     return response_ok(data, ip.OUT_MIME_TYPE)
 
+@test_bp.route('/model_generate', methods=['GET', 'POST'])
+def model_generate():
+    logger.debug("model_generate")
+    generate_models()
+    ModelFactory.reload()
+    return response_ok("Done", "text/plain")
+
 
 @test_bp.route('/model_visualize', methods=['GET', 'POST'])
 def model_visualize():
     logger.debug("model_visualize")
-    model_id = request.form["model_id"]
-    logger.debug(f"model_id={model_id}")
+    screen_type = request.form["screen_type"]
+    logger.debug(f"screen_type={screen_type}")
     svc = ModelFactory.get_service()
-    model = svc.find_by_id(model_id)
+    model = svc.find_by_screen_type(screen_type)
     data = svc.visualize_as_png(model)
     return response_ok(data, "image/png")
 
@@ -126,6 +138,26 @@ def ocr_hocr_visualize():
     data = t.hocr_visualize_as_png(path2, chain, doc)
     return response_ok(data, "image/png")
 
+@test_bp.route('/ocr_caption', methods=['GET', 'POST'])
+def ocr_caption():
+    logger.debug("ocr_caption")
+    path = request.form["path"]
+    logger.debug(f"path={path}")
+    path2 = os.path.join(app_config.ROOT_PATH, path);
+    logger.debug(f"path2={path2}")
+    t = TesseractOcr()
+    dt = time.time()
+    data = t.ocr_caption(path2)
+    dt = int((time.time() - dt)*1000)
+    logger.debug("dt={}ms".format(dt))
+    if data:
+        text = str(data)
+    else:
+        text = "Not found"
+
+    res = text + "\n\n##############################\n\ndt={}ms".format(dt)
+    return response_ok(res, "text/plain")
+
 
 @test_bp.route('/ocr_screen', methods=['GET', 'POST'])
 def ocr_screen():
@@ -143,8 +175,65 @@ def ocr_screen():
     data = t.ocr_screen(path2, chain, scale)
     dt = int((time.time() - dt)*1000)
     logger.debug("dt={}ms".format(dt))
-    res = str(data) + "\n\n##############################\n\ndt={}ms".format(dt)
+    res = json.dumps(data, indent=4) + "\n\n##############################\n\ndt={}ms".format(dt)
     return response_ok(res, "text/plain")
+
+@test_bp.route('/test_font', methods=['GET', 'POST'])
+def test_font():
+    logger.debug("test_font")
+
+    image = Image.open(os.path.join(app_config.ROOT_PATH, "data/s_009.png"))
+    image = image.convert("RGB")
+    width, height = image.size
+
+    top_line = None
+    bottom_line = None
+    for y in range(0, int(height*0.33)):
+        f = True
+        for x in range(int(width*0.25), int(width*0.75)):
+            r, g, b = image.getpixel((x, y))
+            if r != 0 or g != 0 or b <= 120 or b >= 130:
+                f = False
+                break
+        if f:
+            logger.debug("Blue line on Y == {}".format(y))
+            bottom_line = y
+            if not top_line:
+                top_line = y
+
+    if top_line and bottom_line and bottom_line > top_line:
+        image = image.crop((0, top_line, width, bottom_line))
+        image = ImageOps.expand(image, border=50, fill="black")
+    else:
+        image = Image.new("RGB", (1, 1), "white")
+
+
+    """
+    pixels = list(im.getdata())
+    width, height = im.size
+
+    pixels = [pixels[i * width:(i + 1) * width] for i in range(height)]
+
+    
+    for idx, y in enumerate(pixels):
+        if y[200] == (0, 0, 128):
+            logger.debug("Line {} is white.".format(idx))
+    """
+
+    """
+    image = Image.new("RGB", (1024, 768), "white")
+
+    font = ImageFont.truetype(os.path.join(app_config.ROOT_PATH, "data/clinicapro.otf"), size=16)
+    draw = ImageDraw.Draw(image)
+    draw.text((0, 0, 1024, 768), "\nLast name O0O0o0o0O0O\n0123456789QWERTUIOP{}ASDF\nHead First - Supine\nPatient ID",\
+              fill="black", align="left", font=font)
+    """
+
+    b = io.BytesIO()
+    image.save(b, format="PNG")
+    b.seek(0)
+    data = b.read()
+    return response_ok(data, "image/png")
 
 
 @test_bp.route('/tesseract_version', methods=['GET', 'POST'])

@@ -2,14 +2,13 @@ import os
 import io
 import logging
 import logging.config
+from noisseur.core import app_config
 from enum import Enum
 from dataclasses import dataclass, field
 from dataclasses_json import dataclass_json
 from PIL import Image, ImageDraw
 from pathlib import Path
 from noisseur.hocr import HocrParser
-from noisseur.core import app_config
-
 
 logger = logging.getLogger(__name__)
 
@@ -90,6 +89,8 @@ class ItemType(str, Enum):
     LABEL = "label"
     CAPTION = "caption"
     TEXT = "text"
+    RADIO_BOX = "radio_box"
+    CHECK_BOX = "check_box"
 
     def __str__(self) -> str:
         return self.value
@@ -102,6 +103,7 @@ class ItemDataType(str, Enum):
     TIME = "time"
     DATETIME = "datetime"
     FLOAT = "float"
+    BOOL = "bool"
 
     def __str__(self) -> str:
         return self.value
@@ -125,6 +127,7 @@ class Item(GeomObject):
     re: list[str] = None
     data_field: str = None
     data_type: ItemDataType = None
+    data_format: str = None
     control_point: ControlPointType = None
 
 
@@ -149,6 +152,7 @@ class Form(GeomObject):
 @dataclass
 class Model(BaseObject):
     image_path: str = None
+    screen_type: str = None
     form: Form = None
 
     """
@@ -185,6 +189,9 @@ class ModelService:
     def find_by_id(self, model_id: str) -> Model:
         return next((m for m in self.models if m.id == model_id), None)
 
+    def find_by_screen_type(self, screen_type: str) -> Model:
+        return next((m for m in self.models if m.screen_type == screen_type), None)
+
     def get_data_as_dict(self, doc: HocrParser.Document, match: ModelMatch) -> dict:
         if not match or not doc:
             return None
@@ -213,7 +220,7 @@ class ModelService:
             if item.data_field:
                 data[item.data_field] = text
 
-        res = {"items": items, "data": data}
+        res = {"items": items, "type": match.model.screen_type, "data": data}
         return res
 
     def get_image_path(self, model: Model) -> str:
@@ -249,7 +256,7 @@ class ModelService:
             for line in doc.lines:
                 if line.text and line.text.lower().find(text) >= 0:
                     for i, w in enumerate(line.words):
-                        if w.text.lower() == a[0]:
+                        if w.text.lower().find(a[0]) >= 0:
                             words = []
                             rc: Rect = None
                             logger.debug(f"range: {str(i)}, {str(i+l)}")
@@ -306,10 +313,15 @@ class ModelFactory:
     @staticmethod
     def get_service() -> ModelService:
         if not ModelFactory.__model_service:
-            svc = ModelService()
-            svc.register(os.path.join(app_config.ROOT_PATH, "data/s_007.json"))
-            ModelFactory.__model_service = svc
+            ModelFactory.reload()
         return ModelFactory.__model_service
+
+    @staticmethod
+    def reload() -> None:
+        svc = ModelService()
+        svc.register(os.path.join(app_config.ROOT_PATH, "data/s_007.json"))
+        svc.register(os.path.join(app_config.ROOT_PATH, "data/s_010.json"))
+        ModelFactory.__model_service = svc
 
 
 # TODO: move init in other place

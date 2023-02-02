@@ -73,6 +73,7 @@ class TesseractOcr:
               " hocr"
         """
         cfg = f" -c hocr_char_boxes=1" \
+              " -c tessedit_char_whitelist='0123456789-.() {}/;:|_qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM'" \
               " hocr"
 
         logger.debug(f"cfg={cfg}")
@@ -83,6 +84,28 @@ class TesseractOcr:
         doc = hp.parse(res)
         return doc
 
+    def ocr_caption(self, path) -> ModelMatch:
+        logger.debug(f'ocr_caption(path={path})')
+        caption = self.imgProc.caption_ex(path)
+        if not caption:
+            logger.debug("caption not found")
+            return None
+
+        doc: HocrParser.Document = self.ocr_hocr(Image.open(io.BytesIO(caption["data"])), None)
+        if not doc:
+            logger.debug("hocr not found")
+            return None
+
+        svc: ModelService = ModelFactory.get_service()
+        match: ModelMatch = svc.find_by_hocr(doc)
+        if not match:
+            logger.debug("model not found by hocr")
+            return None
+
+        match.offset_x = int(match.offset_x + caption["rc"][0])  # add crop.rc.top coordinate
+        match.offset_y = int(match.offset_y + caption["rc"][1])  # add crop.rc.top coordinate
+        return match
+
     def ocr_screen(self, path, chain, scale: float):
         logger.debug(f'ocr_screen(path={path})')
         doc: HocrParser.Document = self.ocr_hocr(path, chain)
@@ -90,8 +113,17 @@ class TesseractOcr:
             logger.debug("hocr not found")
             return None
 
+        match: ModelMatch = self.ocr_caption(path)
         svc: ModelService = ModelFactory.get_service()
-        match: ModelMatch = svc.find_by_hocr(doc, scale)
+
+        if match:
+            logger.debug("model found by caption")
+            match.offset_x = int(match.offset_x*scale)
+            match.offset_y = int(match.offset_y*scale)
+        else:
+            logger.debug("model not found by caption, try search by hocr")
+            match: ModelMatch = svc.find_by_hocr(doc, scale)
+
         if not match:
             logger.debug("model not found by hocr")
             return None

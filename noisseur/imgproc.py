@@ -2,6 +2,7 @@ import io
 import logging
 import logging.config
 import pyvips
+import PIL
 
 logger = logging.getLogger(__name__)
 
@@ -9,6 +10,7 @@ class ImageProcessor:
 
     #: default output format
     OUT_VIPS_FORMAT = ".png"
+    OUT_PIL_FORMAT = "PNG"
 
     #: default output mime type
     OUT_MIME_TYPE = "image/png"
@@ -27,6 +29,42 @@ class ImageProcessor:
         image = self.vips_load(path)
         image = image.colourspace("b-w")
         return self.to_buffer(image)
+
+    def caption_ex(self, path):
+        logger.debug("caption_ex")
+        image = self.pil_load(path)
+        image = image.convert("RGB")
+        width, height = image.size
+
+        top_line = None
+        bottom_line = None
+        for y in range(0, int(height * 0.33)):
+            f = True
+            for x in range(int(width * 0.25), int(width * 0.75)):
+                r, g, b = image.getpixel((x, y))
+                if r != 0 or g != 0 or b <= 120 or b >= 130:
+                    f = False
+                    break
+            if f:
+                # logger.debug("Blue line on Y == {}".format(y))
+                bottom_line = y
+                if not top_line:
+                    top_line = y
+
+        if top_line and bottom_line and bottom_line > top_line:
+            image = image.crop((0, top_line, width, bottom_line))
+            # image = PIL.ImageOps.expand(image, border=50, fill="black")
+            return {"rc": (0, top_line, width, bottom_line), "data": self.to_buffer(image)}
+        else:
+            return None  # image = PIL.Image.new("RGB", (1, 1), "white")
+
+    def caption(self, path):
+        logger.debug("caption(...)")
+        res = self.caption_ex(path)
+        if res:
+            return res["data"]
+        else:
+            return self.to_buffer(PIL.Image.new("RGB", (1, 1), "white"))
 
     def chain(self, path, commands):
         logger.debug(f"chain(commands={commands})")
@@ -78,7 +116,7 @@ class ImageProcessor:
         logger.debug("scale(...,{})".format(factor))
         factor = float(factor)
         image = self.vips_load(path)
-        image = pyvips.Image.resize(image, factor)
+        image = pyvips.Image.resize(image, factor, kernel="mitchell")
         return self.to_buffer(image)
 
     def sharpen(self, path):
@@ -103,7 +141,20 @@ class ImageProcessor:
         if isinstance(image, pyvips.Image):
             data = image.write_to_buffer(self.OUT_VIPS_FORMAT)
             return data
+        elif isinstance(image, PIL.Image.Image):
+            b = io.BytesIO()
+            image.save(b, format=self.OUT_PIL_FORMAT)
+            b.seek(0)
+            data = b.read()
+            return data
         return None
+
+    def pil_load(self, pathOrData):
+        if isinstance(pathOrData, bytes):
+            image = PIL.Image.open(io.BytesIO(pathOrData))
+        else:
+            image = PIL.Image.open(pathOrData)
+        return image
 
     def vips_load(self, pathOrData) -> pyvips.Image:
         if isinstance(pathOrData, bytes):
