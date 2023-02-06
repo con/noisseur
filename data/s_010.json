@@ -30,7 +30,26 @@
                 "data_field": null,
                 "data_type": null,
                 "data_format": null,
-                "control_point": "top_left"
+                "control_point": "top_left",
+                "row_height": null
+            },
+            {
+                "id": "list_1",
+                "description": null,
+                "rect": {
+                    "left": 10,
+                    "top": 150,
+                    "right": 640,
+                    "bottom": 787
+                },
+                "type": "list",
+                "text": null,
+                "re": null,
+                "data_field": "list_1",
+                "data_type": "list",
+                "data_format": null,
+                "control_point": null,
+                "row_height": 44
             }
         ],
         "relations": []

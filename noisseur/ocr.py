@@ -3,8 +3,13 @@ import logging.config
 import os
 import io
 import re
+import time
+import datetime
+import platform
 import pytesseract
 import pyvips
+from dataclasses import dataclass, field
+from dataclasses_json import dataclass_json
 from PIL import Image, ImageDraw, ImageFont
 from noisseur.core import app_config
 from noisseur.imgproc import ImageProcessor
@@ -13,7 +18,25 @@ from noisseur.model import ModelFactory, ModelService, ModelMatch, Model
 
 logger = logging.getLogger(__name__)
 
-class TesseractOcr:
+@dataclass_json
+@dataclass
+class OcrScreenData:
+    host: str = "localhost"
+    ts: str = None
+    dt_ms: int = 0
+    success: bool = False
+    errors: list[str] = None
+    type: str = None
+    data: dict = None
+    items: dict = None
+
+    def add_error(self, s: str):
+        if not self.errors:
+            self.errors = []
+        self.errors.append(s)
+
+
+class OcrService:
 
     def __init__(self):
         self.imgProc = ImageProcessor()
@@ -106,12 +129,18 @@ class TesseractOcr:
         match.offset_y = int(match.offset_y + caption["rc"][1])  # add crop.rc.top coordinate
         return match
 
-    def ocr_screen(self, path, chain, scale: float):
+    def ocr_screen(self, path, chain, scale: float, border: int) -> OcrScreenData:
         logger.debug(f'ocr_screen(path={path})')
+        osd: OcrScreenData = OcrScreenData()
+        osd.success = False
+        osd.host = platform.node()
+        osd.ts = str(datetime.datetime.now())
+        dt = time.time()
         doc: HocrParser.Document = self.ocr_hocr(path, chain)
         if not doc:
             logger.debug("hocr not found")
-            return None
+            osd.add_error("HOCR not found")
+            return osd
 
         match: ModelMatch = self.ocr_caption(path)
         svc: ModelService = ModelFactory.get_service()
@@ -120,20 +149,49 @@ class TesseractOcr:
             logger.debug("model found by caption")
             match.offset_x = int(match.offset_x*scale)
             match.offset_y = int(match.offset_y*scale)
+            match.scale_x = scale
+            match.scale_y = scale
         else:
             logger.debug("model not found by caption, try search by hocr")
             match: ModelMatch = svc.find_by_hocr(doc, scale)
 
+        if border:
+            match.offset_x = match.offset_x + border
+            match.offset_y = match.offset_y + border
+
         if not match:
             logger.debug("model not found by hocr")
-            return None
+            osd.add_error("Model not found by HOCR")
+            return osd
 
-        return svc.get_data_as_dict(doc, match)
+        dad: dict = svc.get_data_as_dict(doc, match)
+
+        osd.type = dad["type"]
+        osd.items = dad["items"]
+        osd.data = dad["data"]
+        osd.dt_ms = int((time.time() - dt)*1000)
+        if osd.type:
+            osd.success = True
+        return osd
 
 
     def tesseract_version(self):
         return "tesseract {}".format(pytesseract.get_tesseract_version())
 
 
+class OcrFactory:
+    __ocr_service = None
+
+    @staticmethod
+    def init() -> None:
+        svc = OcrService()
+        OcrFactory.__ocr_service = svc
+
+    @staticmethod
+    def get_service() -> OcrService:
+        if not OcrFactory.__ocr_service:
+            OcrFactory.init()
+        return OcrFactory.__ocr_service
 
 
+OcrFactory.init()

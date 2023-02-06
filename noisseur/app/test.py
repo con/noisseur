@@ -7,7 +7,7 @@ import time
 import socket
 from PIL import Image, ImageOps, ImageDraw, ImageFont, FontFile
 from noisseur.core import app_config
-from noisseur.ocr import TesseractOcr
+from noisseur.ocr import OcrService, OcrFactory
 from noisseur.imgproc import ImageProcessor
 from noisseur.model import ModelService, ModelFactory
 from noisseur.model_prototype import generate_models
@@ -96,7 +96,7 @@ def ocr_text():
     logger.debug(f"path2={path2}")
     chain = request.form["chain"]
     logger.debug(f"chain={chain}")
-    t = TesseractOcr()
+    t = OcrFactory.get_service()
     dt = time.time()
     res = t.ocr_text(path2, chain)
     dt = int((time.time() - dt)*1000)
@@ -114,7 +114,7 @@ def ocr_hocr():
     logger.debug(f"path2={path2}")
     chain = request.form["chain"]
     logger.debug(f"chain={chain}")
-    t = TesseractOcr()
+    t = OcrFactory.get_service()
     dt = time.time()
     doc = t.ocr_hocr(path2, chain)
     dt = int((time.time() - dt)*1000)
@@ -133,7 +133,7 @@ def ocr_hocr_visualize():
     logger.debug(f"chain={chain}")
     path2 = os.path.join(app_config.ROOT_PATH, path);
     logger.debug(f"path2={path2}")
-    t = TesseractOcr()
+    t = OcrFactory.get_service()
     doc = t.ocr_hocr(path2, chain)
     data = t.hocr_visualize_as_png(path2, chain, doc)
     return response_ok(data, "image/png")
@@ -145,7 +145,7 @@ def ocr_caption():
     logger.debug(f"path={path}")
     path2 = os.path.join(app_config.ROOT_PATH, path);
     logger.debug(f"path2={path2}")
-    t = TesseractOcr()
+    t = OcrFactory.get_service()
     dt = time.time()
     data = t.ocr_caption(path2)
     dt = int((time.time() - dt)*1000)
@@ -170,12 +170,15 @@ def ocr_screen():
     logger.debug(f"chain={chain}")
     scale = float(request.form["scale"])
     logger.debug(f"scale={scale}")
-    t = TesseractOcr()
+    border = int(request.form["border"])
+    logger.debug(f"border={border}")
+    t = OcrFactory.get_service()
     dt = time.time()
-    data = t.ocr_screen(path2, chain, scale)
+    data = t.ocr_screen(path2, chain, scale, border)
     dt = int((time.time() - dt)*1000)
     logger.debug("dt={}ms".format(dt))
-    res = json.dumps(data, indent=4) + "\n\n##############################\n\ndt={}ms".format(dt)
+    # res = json.dumps(data, indent=4) + "\n\n##############################\n\ndt={}ms".format(dt)
+    res = data.to_json(indent=4)
     return response_ok(res, "text/plain")
 
 @test_bp.route('/test_font', methods=['GET', 'POST'])
@@ -239,7 +242,7 @@ def test_font():
 @test_bp.route('/tesseract_version', methods=['GET', 'POST'])
 def tesseract_version():
     logger.debug("tesseract_version")
-    t = TesseractOcr()
+    t = OcrFactory.get_service()
     return response_ok(t.tesseract_version(), "text/plain")
 
 

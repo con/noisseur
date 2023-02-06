@@ -338,6 +338,54 @@ def generate_model_007():
     item.data_type = "str"
     form.items.append(item)
 
+    item = Item()
+    item.id = "refPhysLabel"
+    item.type = ItemType.LABEL
+    item.rect = Rect(80, 519, 226, 519+21)
+    item.text = ["Referring physician"]
+    form.items.append(item)
+
+    item = Item()
+    item.id = "refPhysValue"
+    item.type = ItemType.TEXT
+    item.rect = Rect(230, 519, 462, 519+21)
+    item.text = None
+    item.data_field = "referring_physician"
+    item.data_type = "str"
+    form.items.append(item)
+
+    item = Item()
+    item.id = "reqPhysLabel"
+    item.type = ItemType.LABEL
+    item.rect = Rect(65, 553, 226, 553+21)
+    item.text = ["Requesting physician"]
+    form.items.append(item)
+
+    item = Item()
+    item.id = "reqPhysValue"
+    item.type = ItemType.TEXT
+    item.rect = Rect(230, 553, 462, 553+21)
+    item.text = None
+    item.data_field = "requesting_physician"
+    item.data_type = "str"
+    form.items.append(item)
+
+    item = Item()
+    item.id = "admissionIdLabel"
+    item.type = ItemType.LABEL
+    item.rect = Rect(120, 586, 226, 586+21)
+    item.text = ["Admission ID"]
+    form.items.append(item)
+
+    item = Item()
+    item.id = "admissionIdValue"
+    item.type = ItemType.TEXT
+    item.rect = Rect(230, 586, 487, 586+21)
+    item.text = None
+    item.data_field = "admission_id"
+    item.data_type = "str"
+    form.items.append(item)
+
     rel = Relation()
     rel.id = "lastNameRel"
     rel.from_id = "lastNameLabel"
@@ -458,6 +506,18 @@ def generate_model_007():
     rel.to_id = "operValue"
     form.relations.append(rel)
 
+    rel = Relation()
+    rel.id = "reqPhysRel"
+    rel.from_id = "reqPhysLabel"
+    rel.to_id = "reqPhysValue"
+    form.relations.append(rel)
+
+    rel = Relation()
+    rel.id = "admissionIdRel"
+    rel.from_id = "admissionIdLabel"
+    rel.to_id = "admissionIdValue"
+    form.relations.append(rel)
+
     # fname
     # Rect(120, 94, +96, +30)
     # Rect(230, 94, +260, +30)
@@ -502,6 +562,17 @@ def generate_model_010():
     item.text = ["Dot Cockpit - Program Editor"]
     item.control_point = ControlPointType.TOP_LEFT
     form.items.append(item)
+
+    item = Item()
+    item.id = "list_1"
+    item.type = ItemType.LIST
+    item.rect = Rect(10, 150, 640, 787)
+    item.row_height = 44
+    item.text = None
+    item.data_field = "list_1"
+    item.data_type = "list"
+    form.items.append(item)
+
 
     model.form = form
 

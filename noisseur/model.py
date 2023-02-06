@@ -91,6 +91,7 @@ class ItemType(str, Enum):
     TEXT = "text"
     RADIO_BOX = "radio_box"
     CHECK_BOX = "check_box"
+    LIST = "list"
 
     def __str__(self) -> str:
         return self.value
@@ -104,6 +105,8 @@ class ItemDataType(str, Enum):
     DATETIME = "datetime"
     FLOAT = "float"
     BOOL = "bool"
+    DICT = "dict"
+    LIST = "list"
 
     def __str__(self) -> str:
         return self.value
@@ -129,6 +132,7 @@ class Item(GeomObject):
     data_type: ItemDataType = None
     data_format: str = None
     control_point: ControlPointType = None
+    row_height: int = None
 
 
 @dataclass_json
@@ -292,6 +296,10 @@ class ModelService:
 
         for item in model.form.items:
             draw = ImageDraw.Draw(image)
+            if item.type == ItemType.LIST and item.row_height:
+                for y in range(item.rect.top, item.rect.bottom, item.row_height):
+                    draw.rectangle([item.rect.left, y, item.rect.right, y + 1], outline="green")
+
             draw.rectangle(item.rect.to_list(), outline="red")
             if item.text:
                 draw.text(item.rect.to_list(), item.text[0], fill="red", align="left")
@@ -324,7 +332,6 @@ class ModelFactory:
         ModelFactory.__model_service = svc
 
 
-# TODO: move init in other place
 ModelFactory.init()
 
 

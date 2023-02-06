@@ -31,7 +31,8 @@
                 "data_field": null,
                 "data_type": null,
                 "data_format": null,
-                "control_point": "top_left"
+                "control_point": "top_left",
+                "row_height": null
             },
             {
                 "id": "iso",
@@ -52,7 +53,8 @@
                 "data_field": null,
                 "data_type": null,
                 "data_format": null,
-                "control_point": "bottom_right"
+                "control_point": "bottom_right",
+                "row_height": null
             },
             {
                 "id": "lastNameLabel",
@@ -71,7 +73,8 @@
                 "data_field": null,
                 "data_type": null,
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "lastNameValue",
@@ -88,7 +91,8 @@
                 "data_field": "last_name",
                 "data_type": "str",
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "firstNameLabel",
@@ -107,7 +111,8 @@
                 "data_field": null,
                 "data_type": null,
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "firstNameValue",
@@ -124,7 +129,8 @@
                 "data_field": "first_name",
                 "data_type": "str",
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "titleLabel",
@@ -143,7 +149,8 @@
                 "data_field": null,
                 "data_type": null,
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "titleValue",
@@ -160,7 +167,8 @@
                 "data_field": "title",
                 "data_type": "str",
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "patientIdLabel",
@@ -179,7 +187,8 @@
                 "data_field": null,
                 "data_type": null,
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "patientIdValue",
@@ -196,7 +205,8 @@
                 "data_field": "patient_id",
                 "data_type": "str",
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "dobLabel",
@@ -215,7 +225,8 @@
                 "data_field": null,
                 "data_type": null,
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "dobValue",
@@ -232,7 +243,8 @@
                 "data_field": "date_of_birth",
                 "data_type": "date",
                 "data_format": "M/d/yyyy",
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "sexLabel",
@@ -251,7 +263,8 @@
                 "data_field": null,
                 "data_type": null,
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "sexValue",
@@ -268,7 +281,8 @@
                 "data_field": "sex",
                 "data_type": "str",
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "ageLabel",
@@ -287,7 +301,8 @@
                 "data_field": null,
                 "data_type": null,
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "ageValue",
@@ -304,7 +319,8 @@
                 "data_field": "age",
                 "data_type": "int",
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "ageUnitValue",
@@ -321,7 +337,8 @@
                 "data_field": "age_unit",
                 "data_type": "str",
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "heightLabel",
@@ -340,7 +357,8 @@
                 "data_field": null,
                 "data_type": null,
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "heightValue",
@@ -357,7 +375,8 @@
                 "data_field": "height",
                 "data_type": "float",
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "heightUnitValue",
@@ -374,7 +393,8 @@
                 "data_field": "height_unit",
                 "data_type": "str",
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "weightLabel",
@@ -393,7 +413,8 @@
                 "data_field": null,
                 "data_type": null,
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "weightValue",
@@ -410,7 +431,8 @@
                 "data_field": "weight",
                 "data_type": "float",
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "weightUnitValue",
@@ -427,7 +449,8 @@
                 "data_field": "weight_unit",
                 "data_type": "str",
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "metricLabel",
@@ -446,7 +469,8 @@
                 "data_field": null,
                 "data_type": null,
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "metricValue",
@@ -463,7 +487,8 @@
                 "data_field": "metric",
                 "data_type": "bool",
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "addInfoLabel",
@@ -482,7 +507,8 @@
                 "data_field": null,
                 "data_type": null,
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "addInfoValue",
@@ -499,7 +525,8 @@
                 "data_field": "additional_info",
                 "data_type": "str",
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "accNoLabel",
@@ -518,7 +545,8 @@
                 "data_field": null,
                 "data_type": null,
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "accNoValue",
@@ -535,7 +563,8 @@
                 "data_field": "accession_no",
                 "data_type": "str",
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "reqIdLabel",
@@ -554,7 +583,8 @@
                 "data_field": null,
                 "data_type": null,
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "reqIdValue",
@@ -571,7 +601,8 @@
                 "data_field": "request_id",
                 "data_type": "str",
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "patientPosLabel",
@@ -590,7 +621,8 @@
                 "data_field": null,
                 "data_type": null,
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "patientPosValue",
@@ -607,7 +639,8 @@
                 "data_field": "patient_position",
                 "data_type": "str",
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "instNameLabel",
@@ -626,7 +659,8 @@
                 "data_field": null,
                 "data_type": null,
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "instNameValue",
@@ -643,7 +677,8 @@
                 "data_field": "institution_name",
                 "data_type": "str",
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "perfPhysLabel",
@@ -662,7 +697,8 @@
                 "data_field": null,
                 "data_type": null,
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "perfPhysValue",
@@ -679,7 +715,8 @@
                 "data_field": "performing_physician",
                 "data_type": "str",
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "operLabel",
@@ -698,7 +735,8 @@
                 "data_field": null,
                 "data_type": null,
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
             },
             {
                 "id": "operValue",
@@ -715,7 +753,122 @@
                 "data_field": "operator",
                 "data_type": "str",
                 "data_format": null,
-                "control_point": null
+                "control_point": null,
+                "row_height": null
+            },
+            {
+                "id": "refPhysLabel",
+                "description": null,
+                "rect": {
+                    "left": 80,
+                    "top": 519,
+                    "right": 226,
+                    "bottom": 540
+                },
+                "type": "label",
+                "text": [
+                    "Referring physician"
+                ],
+                "re": null,
+                "data_field": null,
+                "data_type": null,
+                "data_format": null,
+                "control_point": null,
+                "row_height": null
+            },
+            {
+                "id": "refPhysValue",
+                "description": null,
+                "rect": {
+                    "left": 230,
+                    "top": 519,
+                    "right": 462,
+                    "bottom": 540
+                },
+                "type": "text",
+                "text": null,
+                "re": null,
+                "data_field": "referring_physician",
+                "data_type": "str",
+                "data_format": null,
+                "control_point": null,
+                "row_height": null
+            },
+            {
+                "id": "reqPhysLabel",
+                "description": null,
+                "rect": {
+                    "left": 65,
+                    "top": 553,
+                    "right": 226,
+                    "bottom": 574
+                },
+                "type": "label",
+                "text": [
+                    "Requesting physician"
+                ],
+                "re": null,
+                "data_field": null,
+                "data_type": null,
+                "data_format": null,
+                "control_point": null,
+                "row_height": null
+            },
+            {
+                "id": "reqPhysValue",
+                "description": null,
+                "rect": {
+                    "left": 230,
+                    "top": 553,
+                    "right": 462,
+                    "bottom": 574
+                },
+                "type": "text",
+                "text": null,
+                "re": null,
+                "data_field": "requesting_physician",
+                "data_type": "str",
+                "data_format": null,
+                "control_point": null,
+                "row_height": null
+            },
+            {
+                "id": "admissionIdLabel",
+                "description": null,
+                "rect": {
+                    "left": 120,
+                    "top": 586,
+                    "right": 226,
+                    "bottom": 607
+                },
+                "type": "label",
+                "text": [
+                    "Admission ID"
+                ],
+                "re": null,
+                "data_field": null,
+                "data_type": null,
+                "data_format": null,
+                "control_point": null,
+                "row_height": null
+            },
+            {
+                "id": "admissionIdValue",
+                "description": null,
+                "rect": {
+                    "left": 230,
+                    "top": 586,
+                    "right": 487,
+                    "bottom": 607
+                },
+                "type": "text",
+                "text": null,
+                "re": null,
+                "data_field": "admission_id",
+                "data_type": "str",
+                "data_format": null,
+                "control_point": null,
+                "row_height": null
             }
         ],
         "relations": [
@@ -838,6 +991,18 @@
                 "description": null,
                 "from_id": "operLabel",
                 "to_id": "operValue"
+            },
+            {
+                "id": "reqPhysRel",
+                "description": null,
+                "from_id": "reqPhysLabel",
+                "to_id": "reqPhysValue"
+            },
+            {
+                "id": "admissionIdRel",
+                "description": null,
+                "from_id": "admissionIdLabel",
+                "to_id": "admissionIdValue"
             }
         ]
     }
