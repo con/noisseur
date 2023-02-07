@@ -32,7 +32,8 @@
                 "data_type": null,
                 "data_format": null,
                 "control_point": "top_left",
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "iso",
@@ -54,7 +55,8 @@
                 "data_type": null,
                 "data_format": null,
                 "control_point": "bottom_right",
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "lastNameLabel",
@@ -74,7 +76,8 @@
                 "data_type": null,
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "lastNameValue",
@@ -92,7 +95,8 @@
                 "data_type": "str",
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "firstNameLabel",
@@ -112,7 +116,8 @@
                 "data_type": null,
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "firstNameValue",
@@ -130,7 +135,8 @@
                 "data_type": "str",
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "titleLabel",
@@ -150,7 +156,8 @@
                 "data_type": null,
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "titleValue",
@@ -168,7 +175,8 @@
                 "data_type": "str",
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "patientIdLabel",
@@ -188,7 +196,8 @@
                 "data_type": null,
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "patientIdValue",
@@ -206,7 +215,8 @@
                 "data_type": "str",
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "dobLabel",
@@ -226,7 +236,8 @@
                 "data_type": null,
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "dobValue",
@@ -244,7 +255,8 @@
                 "data_type": "date",
                 "data_format": "M/d/yyyy",
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "sexLabel",
@@ -264,7 +276,8 @@
                 "data_type": null,
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "sexValue",
@@ -282,7 +295,8 @@
                 "data_type": "str",
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "ageLabel",
@@ -302,7 +316,8 @@
                 "data_type": null,
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "ageValue",
@@ -320,7 +335,8 @@
                 "data_type": "int",
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "ageUnitValue",
@@ -338,7 +354,8 @@
                 "data_type": "str",
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "heightLabel",
@@ -358,7 +375,8 @@
                 "data_type": null,
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "heightValue",
@@ -376,7 +394,8 @@
                 "data_type": "float",
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "heightUnitValue",
@@ -394,7 +413,8 @@
                 "data_type": "str",
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "weightLabel",
@@ -414,7 +434,8 @@
                 "data_type": null,
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "weightValue",
@@ -432,7 +453,8 @@
                 "data_type": "float",
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "weightUnitValue",
@@ -450,7 +472,8 @@
                 "data_type": "str",
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "metricLabel",
@@ -470,7 +493,8 @@
                 "data_type": null,
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "metricValue",
@@ -488,7 +512,8 @@
                 "data_type": "bool",
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "addInfoLabel",
@@ -508,7 +533,8 @@
                 "data_type": null,
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "addInfoValue",
@@ -526,7 +552,8 @@
                 "data_type": "str",
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "accNoLabel",
@@ -546,7 +573,8 @@
                 "data_type": null,
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "accNoValue",
@@ -564,7 +592,8 @@
                 "data_type": "str",
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "reqIdLabel",
@@ -584,7 +613,8 @@
                 "data_type": null,
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "reqIdValue",
@@ -602,7 +632,8 @@
                 "data_type": "str",
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "patientPosLabel",
@@ -622,7 +653,8 @@
                 "data_type": null,
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "patientPosValue",
@@ -640,7 +672,8 @@
                 "data_type": "str",
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "instNameLabel",
@@ -660,7 +693,8 @@
                 "data_type": null,
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "instNameValue",
@@ -678,7 +712,8 @@
                 "data_type": "str",
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "perfPhysLabel",
@@ -698,7 +733,8 @@
                 "data_type": null,
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "perfPhysValue",
@@ -716,7 +752,8 @@
                 "data_type": "str",
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "operLabel",
@@ -736,7 +773,8 @@
                 "data_type": null,
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "operValue",
@@ -754,7 +792,8 @@
                 "data_type": "str",
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "refPhysLabel",
@@ -774,7 +813,8 @@
                 "data_type": null,
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "refPhysValue",
@@ -792,7 +832,8 @@
                 "data_type": "str",
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "reqPhysLabel",
@@ -812,7 +853,8 @@
                 "data_type": null,
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "reqPhysValue",
@@ -830,7 +872,8 @@
                 "data_type": "str",
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "admissionIdLabel",
@@ -850,7 +893,8 @@
                 "data_type": null,
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "admissionIdValue",
@@ -868,7 +912,8 @@
                 "data_type": "str",
                 "data_format": null,
                 "control_point": null,
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             }
         ],
         "relations": [

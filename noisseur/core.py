@@ -7,19 +7,22 @@ from noisseur.config import AppConfig
 
 logger = logging.getLogger(__name__)
 
-app_config = AppConfig()
-
 
 def app_init():
 
-    if app_config.initialized():
+    if AppConfig.instance and AppConfig.instance.initialized():
         logger.info("Application already initialized")
         return
 
+    if not AppConfig.instance:
+        AppConfig.instance = AppConfig()
+
+    cfg = AppConfig.instance
+
     logging_ini = 'logging.ini'
     log_files = [
-        app_config.HOST_CONFIG_PATH + '/' + logging_ini,
-        app_config.ROOT_PATH + '/' + logging_ini
+        cfg.HOST_CONFIG_PATH + '/' + logging_ini,
+        cfg.ROOT_PATH + '/' + logging_ini
     ]
 
     for logFile in log_files:
@@ -41,13 +44,13 @@ def app_init():
     # load configuration from multiple INI files and merge
     noisseur_ini = 'noisseur.ini'
     ini_paths = [
-        app_config.ROOT_PATH + '/' + noisseur_ini,
-        app_config.HOST_CONFIG_PATH + '/' + noisseur_ini
+        cfg.ROOT_PATH + '/' + noisseur_ini,
+        cfg.HOST_CONFIG_PATH + '/' + noisseur_ini
     ]
 
     ini_files = None
 
-    app_config.load(ini_paths, ini_files)
+    cfg.load(ini_paths, ini_files)
 
-    logger.info('Environment: '+app_config.ENV)
+    logger.info('Environment: '+cfg.ENV)
     logger.info("Application initialized successfully")

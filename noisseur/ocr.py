@@ -11,7 +11,6 @@ import pyvips
 from dataclasses import dataclass, field
 from dataclasses_json import dataclass_json
 from PIL import Image, ImageDraw, ImageFont
-from noisseur.core import app_config
 from noisseur.imgproc import ImageProcessor
 from noisseur.hocr import HocrParser
 from noisseur.model import ModelFactory, ModelService, ModelMatch, Model
@@ -84,7 +83,7 @@ class OcrService:
             path = Image.open(io.BytesIO(img))
 
         """
-        tessdataPath = os.path.join(app_config.ROOT_PATH, "tessdata")
+        tessdataPath = os.path.join(AppConfig.instance.ROOT_PATH, "tessdata")
         # --psm 8 --oem 1 -c lstm_choice_mode=0 -c tessedit_pageseg_mode=6
         cfg = f" --tessdata-dir {tessdataPath}" \
               " -l eng " \
@@ -155,7 +154,7 @@ class OcrService:
             logger.debug("model not found by caption, try search by hocr")
             match: ModelMatch = svc.find_by_hocr(doc, scale)
 
-        if border:
+        if border and match:
             match.offset_x = match.offset_x + border
             match.offset_y = match.offset_y + border
 

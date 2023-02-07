@@ -2,7 +2,7 @@ import os.path
 import logging
 import pytest
 from noisseur.model import Model, ModelFactory, Form, Item, Relation, Rect, ItemType, ControlPointType
-from noisseur.core import app_config
+from noisseur.core import AppConfig
 
 logger = logging.getLogger(__name__)
 logger.debug("name=" + __name__)
@@ -536,7 +536,7 @@ def generate_model_007():
     logger.debug("json=\n")
     logger.debug(s)
 
-    with open(os.path.join(app_config.ROOT_PATH, "data/s_007.json"), 'w') as f:
+    with open(os.path.join(AppConfig.instance.ROOT_PATH, "data/s_007.json"), 'w') as f:
         f.write(s)
 
     model2 = Model.from_json(s)
@@ -568,6 +568,7 @@ def generate_model_010():
     item.type = ItemType.LIST
     item.rect = Rect(10, 150, 640, 787)
     item.row_height = 44
+    item.list_item_screen_type = "dot-cockpit-editor-list_1"
     item.text = None
     item.data_field = "list_1"
     item.data_type = "list"
@@ -580,7 +581,68 @@ def generate_model_010():
     logger.debug("json=\n")
     logger.debug(s)
 
-    with open(os.path.join(app_config.ROOT_PATH, "data/s_010.json"), 'w') as f:
+    with open(os.path.join(AppConfig.instance.ROOT_PATH, "data/s_010.json"), 'w') as f:
+        f.write(s)
+
+    model2 = Model.from_json(s)
+    logger.debug("model2={}".format(model2))
+
+def generate_model_011():
+    model = Model()
+    model.id = "model011"
+    model.screen_type = "dot-cockpit-editor-list_1"
+    model.description = "List item renderer"
+    model.image_path = "data/s_011.png"
+
+    form = Form()
+    form.id = "form1"
+    form.description = "Dot Cockpit Editor list_1 Form"
+
+    form.rect = Rect(0, 0, 629, 44)
+
+    item = Item()
+    item.id = "name"
+    item.type = ItemType.TEXT
+    item.rect = Rect(10, 2, 265, 20)
+    item.text = None
+    item.data_field = "name"
+    item.data_type = "str"
+    form.items.append(item)
+
+    item = Item()
+    item.id = "time"
+    item.type = ItemType.TEXT
+    item.rect = Rect(268, 2, 318, 20)
+    item.text = None
+    item.data_field = "time"
+    item.data_type = "str"
+    form.items.append(item)
+
+    item = Item()
+    item.id = "mark_1"
+    item.type = ItemType.TEXT
+    item.rect = Rect(10, 22, 70, 42)
+    item.text = None
+    item.data_field = "mark_1"
+    item.data_type = "str"
+    form.items.append(item)
+
+    item = Item()
+    item.id = "mark_2"
+    item.type = ItemType.TEXT
+    item.rect = Rect(95, 22, 140, 42)
+    item.text = None
+    item.data_field = "mark_2"
+    item.data_type = "str"
+    form.items.append(item)
+
+    model.form = form
+
+    s = model.to_json(indent=4)
+    logger.debug("json=\n")
+    logger.debug(s)
+
+    with open(os.path.join(AppConfig.instance.ROOT_PATH, "data/s_011.json"), 'w') as f:
         f.write(s)
 
     model2 = Model.from_json(s)
@@ -590,4 +652,5 @@ def generate_models():
     logger.debug("generate_models()")
     generate_model_007()
     generate_model_010()
+    generate_model_011()
     # ModelFactory.reload()

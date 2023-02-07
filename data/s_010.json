@@ -31,7 +31,8 @@
                 "data_type": null,
                 "data_format": null,
                 "control_point": "top_left",
-                "row_height": null
+                "row_height": null,
+                "list_item_screen_type": null
             },
             {
                 "id": "list_1",
@@ -49,7 +50,8 @@
                 "data_type": "list",
                 "data_format": null,
                 "control_point": null,
-                "row_height": 44
+                "row_height": 44,
+                "list_item_screen_type": "dot-cockpit-editor-list_1"
             }
         ],
         "relations": []

@@ -20,10 +20,11 @@ class BaseConfig:
 
 # Main application configuration
 class AppConfig:
+    instance = None
 
     #
     SECTION_SYSTEM           = "system"
-    SECTION_BOOT_ENV         = "env"
+    SECTION_NOISSEUR         = "noisseur"
     #
     SECTION_FLASK            = "flask"
     #
@@ -67,8 +68,8 @@ class AppConfig:
     def _getListStr(self, section, name) -> list:
         key = f'{section}|{name}'
         if not (key in self._cache):
-            s = str(self._config.get(section, name));
-            lst = filter(None, [opt.strip() for opt in s.splitlines()])
+            s = str(self._config.get(section, name))
+            lst = list(filter(None, [opt.strip() for opt in s.splitlines()]))
             self._cache[key] = lst
         return self._cache[key]
 
@@ -81,13 +82,13 @@ class AppConfig:
     def _getStr(self, section, name) -> str:
         key = f'{section}|{name}'
         if not (key in self._cache):
-            self._cache[key] = self._config.get(section, name);
+            self._cache[key] = self._config.get(section, name)
         return self._cache[key]
 
     def _getInt(self, section, name) -> int:
         key = f'{section}|{name}'
         if not (key in self._cache):
-            self._cache[key] = int(self._config.get(section, name));
+            self._cache[key] = int(self._config.get(section, name))
         return self._cache[key]
 
     #def dump(self):
@@ -121,15 +122,23 @@ class AppConfig:
 
     @property
     def ROOT_PATH(self):
-        return self._rootPath;
+        return self._rootPath
 
     @property
     def HOST_CONFIG_PATH(self):
-        return self._hostConfigPath;
+        return self._hostConfigPath
 
     @property
     def ENV(self):
-        return self._getStr(self.SECTION_SYSTEM, "ENV");
+        return self._getStr(self.SECTION_SYSTEM, "ENV")
+
+    @property
+    def MODEL_LIST(self):
+        return self._getListStr(self.SECTION_NOISSEUR, "MODEL_LIST")
+
+    @property
+    def noisseur(self) -> dict:
+        return self._getDict(self.SECTION_NOISSEUR)
 
     @property
     def flask(self) -> dict:

@@ -2,7 +2,7 @@ import os
 import io
 import logging
 import logging.config
-from noisseur.core import app_config
+from noisseur.config import AppConfig
 from enum import Enum
 from dataclasses import dataclass, field
 from dataclasses_json import dataclass_json
@@ -133,6 +133,7 @@ class Item(GeomObject):
     data_format: str = None
     control_point: ControlPointType = None
     row_height: int = None
+    list_item_screen_type: str = None
 
 
 @dataclass_json
@@ -176,6 +177,9 @@ class ModelMatch:
     scale_x: float
     scale_y: float
 
+    def copy(self):
+        return ModelMatch(self.model, self.offset_x, self.offset_y, self.scale_x,self.scale_y)
+
 
 class ModelService:
 
@@ -207,28 +211,57 @@ class ModelService:
         data = {}
 
         for item in match.model.form.items:
-            rc: Rect = item.rect.copy()
-            rc.scale(match.scale_x, match.scale_y)
-            rc.offset(match.offset_x, match.offset_y)
-            texts = []
-            for word in doc.words:
-                rc2: Rect = Rect.from_bbox(word.bbox)
-                if rc.contains(rc2.center()):
-                    texts.append(word.text)
 
-            text = None
-            if texts:
-                text = " ".join(texts)
+            # process item renderers
+            if item.type == ItemType.LIST and item.row_height:
+                lst = []
+                index = 0
+                for y in range(item.rect.top, item.rect.bottom, item.row_height):
+                    rc2: Rect = Rect(item.rect.left, y, item.rect.right, y + item.row_height)
+                    rc2.scale(match.scale_x, match.scale_y)
 
-            items[item.id] = text
-            if item.data_field:
-                data[item.data_field] = text
+                    match2: ModelMatch = match.copy()
+                    match2.model = ModelFactory.get_service().find_by_screen_type(item.list_item_screen_type)
+                    if not match2.model:
+                        raise Exception(f"Model not found: item.id={str(item.id)},"
+                                        " screen_type={str(item.list_item_screen_type)}")
+                    match2.offset_x = match2.offset_x + rc2.left
+                    match2.offset_y = match2.offset_y + rc2.top
+
+                    res2 = self.get_data_as_dict(doc, match2)
+                    if res2 and res2["data"]:
+                        data2 = res2["data"]
+                        # add only dict with non-empty values
+                        if any(data2.values()):
+                            lst.append(data2)
+                        data2["index"] = index
+                    index += 1
+
+                if item.data_field:
+                    data[item.data_field] = lst
+            else:
+                rc: Rect = item.rect.copy()
+                rc.scale(match.scale_x, match.scale_y)
+                rc.offset(match.offset_x, match.offset_y)
+                texts = []
+                for word in doc.words:
+                    rc2: Rect = Rect.from_bbox(word.bbox)
+                    if rc.contains(rc2.center()):
+                        texts.append(word.text)
+
+                text = None
+                if texts:
+                    text = " ".join(texts)
+
+                items[item.id] = text
+                if item.data_field:
+                    data[item.data_field] = text
 
         res = {"items": items, "type": match.model.screen_type, "data": data}
         return res
 
     def get_image_path(self, model: Model) -> str:
-        return os.path.join(app_config.ROOT_PATH, model.image_path)
+        return os.path.join(AppConfig.instance.ROOT_PATH, model.image_path)
 
     def load(self, path: str) -> Model:
         logger.debug("load(path={})".format(path))
@@ -326,12 +359,16 @@ class ModelFactory:
 
     @staticmethod
     def reload() -> None:
+        logger.debug("reload()")
         svc = ModelService()
-        svc.register(os.path.join(app_config.ROOT_PATH, "data/s_007.json"))
-        svc.register(os.path.join(app_config.ROOT_PATH, "data/s_010.json"))
+        lst = AppConfig.instance.MODEL_LIST
+        if lst:
+            for path in lst:
+                logger.debug("path="+path)
+                svc.register(os.path.join(AppConfig.instance.ROOT_PATH, path))
         ModelFactory.__model_service = svc
 
 
-ModelFactory.init()
+# ModelFactory.init()
 
 

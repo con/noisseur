@@ -6,7 +6,7 @@ from datetime import datetime
 import time
 import socket
 from PIL import Image, ImageOps, ImageDraw, ImageFont, FontFile
-from noisseur.core import app_config
+from noisseur.config import AppConfig
 from noisseur.ocr import OcrService, OcrFactory
 from noisseur.imgproc import ImageProcessor
 from noisseur.model import ModelService, ModelFactory
@@ -57,7 +57,7 @@ def imgproc_chain():
     logger.debug("imgproc_chain")
     path = request.form["path"]
     logger.debug(f"path={path}")
-    path2 = os.path.join(app_config.ROOT_PATH, path);
+    path2 = os.path.join(AppConfig.instance.ROOT_PATH, path);
     logger.debug(f"path2={path2}")
     chain = request.form["chain"]
     logger.debug(f"chain={chain}")
@@ -92,7 +92,7 @@ def ocr_text():
     logger.debug("ocr_text")
     path = request.form["path"]
     logger.debug(f"path={path}")
-    path2 = os.path.join(app_config.ROOT_PATH, path);
+    path2 = os.path.join(AppConfig.instance.ROOT_PATH, path);
     logger.debug(f"path2={path2}")
     chain = request.form["chain"]
     logger.debug(f"chain={chain}")
@@ -110,7 +110,7 @@ def ocr_hocr():
     logger.debug("ocr_hocr")
     path = request.form["path"]
     logger.debug(f"path={path}")
-    path2 = os.path.join(app_config.ROOT_PATH, path);
+    path2 = os.path.join(AppConfig.instance.ROOT_PATH, path);
     logger.debug(f"path2={path2}")
     chain = request.form["chain"]
     logger.debug(f"chain={chain}")
@@ -131,7 +131,7 @@ def ocr_hocr_visualize():
     logger.debug(f"path={path}")
     chain = request.form["chain"]
     logger.debug(f"chain={chain}")
-    path2 = os.path.join(app_config.ROOT_PATH, path);
+    path2 = os.path.join(AppConfig.instance.ROOT_PATH, path);
     logger.debug(f"path2={path2}")
     t = OcrFactory.get_service()
     doc = t.ocr_hocr(path2, chain)
@@ -143,7 +143,7 @@ def ocr_caption():
     logger.debug("ocr_caption")
     path = request.form["path"]
     logger.debug(f"path={path}")
-    path2 = os.path.join(app_config.ROOT_PATH, path);
+    path2 = os.path.join(AppConfig.instance.ROOT_PATH, path);
     logger.debug(f"path2={path2}")
     t = OcrFactory.get_service()
     dt = time.time()
@@ -164,7 +164,7 @@ def ocr_screen():
     logger.debug("ocr_screen")
     path = request.form["path"]
     logger.debug(f"path={path}")
-    path2 = os.path.join(app_config.ROOT_PATH, path);
+    path2 = os.path.join(AppConfig.instance.ROOT_PATH, path);
     logger.debug(f"path2={path2}")
     chain = request.form["chain"]
     logger.debug(f"chain={chain}")
@@ -185,7 +185,7 @@ def ocr_screen():
 def test_font():
     logger.debug("test_font")
 
-    image = Image.open(os.path.join(app_config.ROOT_PATH, "data/s_009.png"))
+    image = Image.open(os.path.join(AppConfig.instance.ROOT_PATH, "data/s_009.png"))
     image = image.convert("RGB")
     width, height = image.size
 
@@ -226,7 +226,7 @@ def test_font():
     """
     image = Image.new("RGB", (1024, 768), "white")
 
-    font = ImageFont.truetype(os.path.join(app_config.ROOT_PATH, "data/clinicapro.otf"), size=16)
+    font = ImageFont.truetype(os.path.join(AppConfig.instance.ROOT_PATH, "data/clinicapro.otf"), size=16)
     draw = ImageDraw.Draw(image)
     draw.text((0, 0, 1024, 768), "\nLast name O0O0o0o0O0O\n0123456789QWERTUIOP{}ASDF\nHead First - Supine\nPatient ID",\
               fill="black", align="left", font=font)
