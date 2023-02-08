@@ -2,9 +2,8 @@ import logging
 
 from flask import Flask, render_template
 
-from core import app_init
-from core import AppConfig
-
+from noisseur.core import app_init
+from noisseur.core import AppConfig
 from noisseur.app import api_v1
 from noisseur.app import test
 from noisseur.model import ModelFactory
@@ -21,26 +20,26 @@ def create_flask_app() -> Flask:
 
     ModelFactory.init()
 
-    app = Flask(__name__, template_folder='app/web/templates', static_folder='app/web/static')
+    app1 = Flask(__name__, template_folder='app/web/templates', static_folder='app/web/static')
     logger.debug("Loading Flask app config...")
-    app.config.from_mapping(AppConfig.instance.flask)
+    app1.config.from_mapping(AppConfig.instance.flask)
 
-    flask_app = app
+    flask_app = app1
 
-    with app.app_context():
+    with app1.app_context():
 
         logger.debug("Registering blueprint: api_v1 ...")
-        app.register_blueprint(api_v1.api_v1_bp, url_prefix='/api/1')
+        app1.register_blueprint(api_v1.api_v1_bp, url_prefix='/api/1')
 
         logger.debug("Registering blueprint: test ...")
-        app.register_blueprint(test.test_bp, url_prefix='/test')
+        app1.register_blueprint(test.test_bp, url_prefix='/test')
 
-    @app.route('/')
+    @app1.route('/')
     def home():
         logger.debug("home")
         return render_template('home.j2')
 
-    return app
+    return app1
 
 
 def main():

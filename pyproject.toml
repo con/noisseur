@@ -30,4 +30,5 @@ build-backend = "poetry.masonry.api"
 # e.g.:
 #        poetry run app
 
-app = "noisseur.app:main"
+srv = "noisseur.srv:main"
+test_model = "noisseur.tests.test_model:test_1"
