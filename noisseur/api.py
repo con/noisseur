@@ -30,9 +30,14 @@ class ApiService:
     def __init__(self):
         logger.debug("ApiService()")
 
-    def get_screen_data(self, image: bytes) -> GetScreenDataResponse:
+    def get_screen_data(self, image: bytes, path: str) -> GetScreenDataResponse:
         res: GetScreenDataResponse = GetScreenDataResponse(None, None, None, False, None, None, None)
-        res2: OcrScreenData = OcrFactory.get_service().ocr_screen(image, "scale(3.1)|sharpen|bw|border(30)", 3.1, 30)
+
+        if not image and not path:
+            raise Exception("No input data specified (image or path)")
+
+        res2: OcrScreenData = OcrFactory.get_service().ocr_screen(image if image else path,
+                                "scale(3.1)|sharpen|bw|border(30)", 3.1, 30)
         if res2:
             res.host = res2.host
             res.ts = res2.ts
