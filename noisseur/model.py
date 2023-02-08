@@ -2,7 +2,7 @@ import os
 import io
 import logging
 import logging.config
-from noisseur.config import AppConfig
+from noisseur.cfg import AppConfig
 from enum import Enum
 from dataclasses import dataclass, field
 from dataclasses_json import dataclass_json

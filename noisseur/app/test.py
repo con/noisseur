@@ -6,7 +6,7 @@ from datetime import datetime
 import time
 import socket
 from PIL import Image, ImageOps, ImageDraw, ImageFont, FontFile
-from noisseur.config import AppConfig
+from noisseur.cfg import AppConfig
 from noisseur.ocr import OcrService, OcrFactory
 from noisseur.imgproc import ImageProcessor
 from noisseur.model import ModelService, ModelFactory

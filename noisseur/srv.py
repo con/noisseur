@@ -2,8 +2,8 @@ import logging
 
 from flask import Flask, render_template
 
-from noisseur.core import app_init
-from noisseur.core import AppConfig
+from noisseur.cfg import app_init
+from noisseur.cfg import AppConfig
 from noisseur.app import api_v1
 from noisseur.app import test
 from noisseur.model import ModelFactory

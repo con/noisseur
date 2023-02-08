@@ -2,7 +2,7 @@ import os.path
 import logging
 import pytest
 from noisseur.model import Model, ModelFactory, Form, Item, Relation, Rect, ItemType, ControlPointType
-from noisseur.core import AppConfig
+from noisseur.cfg import AppConfig
 
 logger = logging.getLogger(__name__)
 logger.debug("name=" + __name__)
