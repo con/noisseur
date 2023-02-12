@@ -52,13 +52,13 @@ class PingAction(Resource):
 
 screen_data_model = api.model(
     "ScreenDataResponse", {
-        "host": fields.String,
-        "ts": fields.String,
-        "dt_ms": fields.Integer,
-        "success": fields.Boolean,
-        "errors": fields.List(fields.String),
-        "type": fields.String,
-        "data": fields.Raw
+        "host": fields.String(description="Host name"),
+        "ts": fields.String(description="Execution timestamp"),
+        "dt_ms": fields.Integer(description="Execution time in ms"),
+        "success": fields.Boolean(description="True on success, otherwise False"),
+        "errors": fields.List(fields.String, description="List of errors if any"),
+        "type": fields.String(description="Recognized screen model type"),
+        "data": fields.Raw(description="Recognized Siemens console data in JSON format")
     }
 )
 screen_data_parser = api.parser()
@@ -80,9 +80,9 @@ class ScreenDataAction(Resource):
 
         path = args["path"]
         logger.debug(f"path={path}")
-        if path:
+        if path and not os.path.exists(path):
             path = os.path.join(AppConfig.instance.ROOT_PATH, path)
-        logger.debug(f"path#2={path}")
+            logger.debug(f"path#2={path}")
 
         if args["screen"]:
             logger.debug("screen parameter is specified")
