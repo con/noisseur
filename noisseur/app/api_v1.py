@@ -24,7 +24,7 @@ api = Api(
 )
 
 ns = api.namespace(
-    "Service",
+    "ApiService",
     description="Noisseur API operations",
     path="/"
 )
@@ -50,8 +50,8 @@ class PingAction(Resource):
         return {"message": f"Pong: {str(args['text1'])}", "aaa": "zzz"}
 
 
-screen_data_model = api.model(
-    "ScreenDataResponse", {
+get_screen_data_model = api.model(
+    "GetScreenDataResponse", {
         "host": fields.String(description="Host name"),
         "ts": fields.String(description="Execution timestamp"),
         "dt_ms": fields.Integer(description="Execution time in ms"),
@@ -61,22 +61,22 @@ screen_data_model = api.model(
         "data": fields.Raw(description="Recognized Siemens console data in JSON format")
     }
 )
-screen_data_parser = api.parser()
-screen_data_parser.add_argument("path", type=str, help="Image PNG local path absolute or relative to project root")
-screen_data_parser.add_argument('screen', location='files', type=FileStorage)
+get_screen_data_parser = api.parser()
+get_screen_data_parser.add_argument("path", type=str, help="Image PNG local path absolute or relative to project root")
+get_screen_data_parser.add_argument('screen', location='files', type=FileStorage)
 
 
-@ns.route("/screen_data")
-class ScreenDataAction(Resource):
+@ns.route("/get_screen_data")
+class GetScreenDataAction(Resource):
     """Get screen data action"""
 
-    def screen_data(self):
-        logger.debug("screen_data()")
+    def execute(self):
+        logger.debug("execute()")
 
         image = None
         path = None
 
-        args = screen_data_parser.parse_args()
+        args = get_screen_data_parser.parse_args()
 
         path = args["path"]
         logger.debug(f"path={path}")
@@ -94,13 +94,13 @@ class ScreenDataAction(Resource):
         res = ApiFactory.get_service().get_screen_data(image, path)
         return res
 
-    @api.doc(parser=screen_data_parser, description="Recognize and parse Siemens console screen")
-    @api.marshal_with(screen_data_model)
+    @api.doc(parser=get_screen_data_parser, description="Recognize and parse Siemens console screen")
+    @api.marshal_with(get_screen_data_model)
     def get(self):
-        return self.screen_data()
+        return self.execute()
 
-    @api.doc(parser=screen_data_parser, description="Recognize and parse Siemens console screen")
-    @api.marshal_with(screen_data_model)
+    @api.doc(parser=get_screen_data_parser, description="Recognize and parse Siemens console screen")
+    @api.marshal_with(get_screen_data_model)
     def post(self):
-        return self.screen_data()
+        return self.execute()
 
