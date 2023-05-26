@@ -1,0 +1,61 @@
+
+[Install Tesseract on MacOS]
+
+1) brew update
+2) brew upgrade
+3) brew install tesseract --HEAD
+4) tesseract --version
+
+tesseract 5.3.0-8-gda373
+ leptonica-1.82.0
+  libgif 5.2.1 : libjpeg 8d (libjpeg-turbo 2.1.3) : libpng 1.6.39 : libtiff 4.4.0 : zlib 1.2.11 : libwebp 1.2.4 : libopenjp2 2.5.0
+ Found AVX2
+ Found AVX
+ Found FMA
+ Found SSE4.1
+ Found libcurl/7.79.1 SecureTransport (LibreSSL/3.3.6) zlib/1.2.11 nghttp2/1.45.1
+
+[Install VIPS on MacOS]
+
+1) brew install vips
+2) vips --version
+
+vips-8.13.3
+
+[Install Python on MacOS]
+
+1) brew install python
+2)  python3 --version
+Python 3.10.9
+
+[Install Poetry on MacOS]
+
+1) brew install poetry
+2) poetry --version
+Poetry (version 1.3.1)
+
+[Setup venv]
+# setup ~/noisseur/venv environment
+
+ cd ~/noisseur
+ python3 -m venv venv
+ ./venv/bin/pip install poetry
+
+
+./venv/bin/poetry --version
+ >> Poetry (version 1.3.1)
+ 
+ # set in project venv in poetry
+./venv/bin/poetry config virtualenvs.create false
+./venv/bin/poetry config virtualenvs.in-project true
+
+# install poetry and run test
+./venv/bin/poetry env use ./venv/bin/python
+./venv/bin/poetry install
+
+./venv/bin/poetry build
+
+./venv/bin/poetry run srv
+
+
+

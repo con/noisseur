@@ -1,0 +1,95 @@
+{
+    "id": "model011",
+    "description": "List item renderer",
+    "image_path": "data/s_011.png",
+    "screen_type": "dot-cockpit-editor-list_1",
+    "form": {
+        "id": "form1",
+        "description": "Dot Cockpit Editor list_1 Form",
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "right": 629,
+            "bottom": 44
+        },
+        "items": [
+            {
+                "id": "name",
+                "description": null,
+                "rect": {
+                    "left": 10,
+                    "top": 2,
+                    "right": 265,
+                    "bottom": 20
+                },
+                "type": "text",
+                "text": null,
+                "re": null,
+                "data_field": "name",
+                "data_type": "str",
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "time",
+                "description": null,
+                "rect": {
+                    "left": 268,
+                    "top": 2,
+                    "right": 318,
+                    "bottom": 20
+                },
+                "type": "text",
+                "text": null,
+                "re": null,
+                "data_field": "time",
+                "data_type": "str",
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "mark_1",
+                "description": null,
+                "rect": {
+                    "left": 10,
+                    "top": 22,
+                    "right": 70,
+                    "bottom": 42
+                },
+                "type": "text",
+                "text": null,
+                "re": null,
+                "data_field": "mark_1",
+                "data_type": "str",
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "mark_2",
+                "description": null,
+                "rect": {
+                    "left": 95,
+                    "top": 22,
+                    "right": 140,
+                    "bottom": 42
+                },
+                "type": "text",
+                "text": null,
+                "re": null,
+                "data_field": "mark_2",
+                "data_type": "str",
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            }
+        ],
+        "relations": []
+    }
+}

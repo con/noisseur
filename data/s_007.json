@@ -1,0 +1,1054 @@
+{
+    "id": "model007",
+    "description": "Model One",
+    "image_path": "data/s_007.png",
+    "screen_type": "patient-registration",
+    "form": {
+        "id": "form1",
+        "description": "Patient Registration Form",
+        "rect": {
+            "left": 0,
+            "top": 0,
+            "right": 1031,
+            "bottom": 710
+        },
+        "items": [
+            {
+                "id": "title",
+                "description": null,
+                "rect": {
+                    "left": 0,
+                    "top": 0,
+                    "right": 170,
+                    "bottom": 30
+                },
+                "type": "caption",
+                "text": [
+                    "Patient Registration",
+                    "tient Registration"
+                ],
+                "re": null,
+                "data_field": null,
+                "data_type": null,
+                "data_format": null,
+                "control_point": "top_left",
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "iso",
+                "description": null,
+                "rect": {
+                    "left": 878,
+                    "top": 692,
+                    "right": 931,
+                    "bottom": 708
+                },
+                "type": "caption",
+                "text": [
+                    "[ISO_IR",
+                    "ISO_IR",
+                    "ISO IR"
+                ],
+                "re": null,
+                "data_field": null,
+                "data_type": null,
+                "data_format": null,
+                "control_point": "bottom_right",
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "lastNameLabel",
+                "description": null,
+                "rect": {
+                    "left": 130,
+                    "top": 60,
+                    "right": 226,
+                    "bottom": 86
+                },
+                "type": "label",
+                "text": [
+                    "Last name"
+                ],
+                "re": null,
+                "data_field": null,
+                "data_type": null,
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "lastNameValue",
+                "description": null,
+                "rect": {
+                    "left": 230,
+                    "top": 60,
+                    "right": 490,
+                    "bottom": 86
+                },
+                "type": "text",
+                "text": null,
+                "re": null,
+                "data_field": "last_name",
+                "data_type": "str",
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "firstNameLabel",
+                "description": null,
+                "rect": {
+                    "left": 135,
+                    "top": 94,
+                    "right": 226,
+                    "bottom": 118
+                },
+                "type": "label",
+                "text": [
+                    "First name"
+                ],
+                "re": null,
+                "data_field": null,
+                "data_type": null,
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "firstNameValue",
+                "description": null,
+                "rect": {
+                    "left": 230,
+                    "top": 94,
+                    "right": 490,
+                    "bottom": 118
+                },
+                "type": "text",
+                "text": null,
+                "re": null,
+                "data_field": "first_name",
+                "data_type": "str",
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "titleLabel",
+                "description": null,
+                "rect": {
+                    "left": 187,
+                    "top": 127,
+                    "right": 226,
+                    "bottom": 149
+                },
+                "type": "label",
+                "text": [
+                    "Title"
+                ],
+                "re": null,
+                "data_field": null,
+                "data_type": null,
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "titleValue",
+                "description": null,
+                "rect": {
+                    "left": 230,
+                    "top": 127,
+                    "right": 318,
+                    "bottom": 149
+                },
+                "type": "text",
+                "text": null,
+                "re": null,
+                "data_field": "title",
+                "data_type": "str",
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "patientIdLabel",
+                "description": null,
+                "rect": {
+                    "left": 135,
+                    "top": 160,
+                    "right": 226,
+                    "bottom": 182
+                },
+                "type": "label",
+                "text": [
+                    "Patient ID"
+                ],
+                "re": null,
+                "data_field": null,
+                "data_type": null,
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "patientIdValue",
+                "description": null,
+                "rect": {
+                    "left": 230,
+                    "top": 160,
+                    "right": 490,
+                    "bottom": 182
+                },
+                "type": "text",
+                "text": null,
+                "re": null,
+                "data_field": "patient_id",
+                "data_type": "str",
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "dobLabel",
+                "description": null,
+                "rect": {
+                    "left": 115,
+                    "top": 193,
+                    "right": 226,
+                    "bottom": 215
+                },
+                "type": "label",
+                "text": [
+                    "Date of birth"
+                ],
+                "re": null,
+                "data_field": null,
+                "data_type": null,
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "dobValue",
+                "description": null,
+                "rect": {
+                    "left": 230,
+                    "top": 193,
+                    "right": 344,
+                    "bottom": 215
+                },
+                "type": "text",
+                "text": null,
+                "re": null,
+                "data_field": "date_of_birth",
+                "data_type": "date",
+                "data_format": "M/d/yyyy",
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "sexLabel",
+                "description": null,
+                "rect": {
+                    "left": 183,
+                    "top": 225,
+                    "right": 226,
+                    "bottom": 247
+                },
+                "type": "label",
+                "text": [
+                    "Sex"
+                ],
+                "re": null,
+                "data_field": null,
+                "data_type": null,
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "sexValue",
+                "description": null,
+                "rect": {
+                    "left": 230,
+                    "top": 225,
+                    "right": 455,
+                    "bottom": 247
+                },
+                "type": "radio_box",
+                "text": null,
+                "re": null,
+                "data_field": "sex",
+                "data_type": "str",
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "ageLabel",
+                "description": null,
+                "rect": {
+                    "left": 183,
+                    "top": 252,
+                    "right": 226,
+                    "bottom": 275
+                },
+                "type": "label",
+                "text": [
+                    "Age"
+                ],
+                "re": null,
+                "data_field": null,
+                "data_type": null,
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "ageValue",
+                "description": null,
+                "rect": {
+                    "left": 230,
+                    "top": 252,
+                    "right": 320,
+                    "bottom": 275
+                },
+                "type": "text",
+                "text": null,
+                "re": null,
+                "data_field": "age",
+                "data_type": "int",
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "ageUnitValue",
+                "description": null,
+                "rect": {
+                    "left": 330,
+                    "top": 252,
+                    "right": 385,
+                    "bottom": 275
+                },
+                "type": "text",
+                "text": null,
+                "re": null,
+                "data_field": "age_unit",
+                "data_type": "str",
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "heightLabel",
+                "description": null,
+                "rect": {
+                    "left": 162,
+                    "top": 284,
+                    "right": 226,
+                    "bottom": 306
+                },
+                "type": "label",
+                "text": [
+                    "Height"
+                ],
+                "re": null,
+                "data_field": null,
+                "data_type": null,
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "heightValue",
+                "description": null,
+                "rect": {
+                    "left": 230,
+                    "top": 284,
+                    "right": 298,
+                    "bottom": 306
+                },
+                "type": "text",
+                "text": null,
+                "re": null,
+                "data_field": "height",
+                "data_type": "float",
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "heightUnitValue",
+                "description": null,
+                "rect": {
+                    "left": 301,
+                    "top": 284,
+                    "right": 330,
+                    "bottom": 306
+                },
+                "type": "text",
+                "text": null,
+                "re": null,
+                "data_field": "height_unit",
+                "data_type": "str",
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "weightLabel",
+                "description": null,
+                "rect": {
+                    "left": 162,
+                    "top": 317,
+                    "right": 226,
+                    "bottom": 339
+                },
+                "type": "label",
+                "text": [
+                    "Weight"
+                ],
+                "re": null,
+                "data_field": null,
+                "data_type": null,
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "weightValue",
+                "description": null,
+                "rect": {
+                    "left": 230,
+                    "top": 317,
+                    "right": 298,
+                    "bottom": 339
+                },
+                "type": "text",
+                "text": null,
+                "re": null,
+                "data_field": "weight",
+                "data_type": "float",
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "weightUnitValue",
+                "description": null,
+                "rect": {
+                    "left": 301,
+                    "top": 317,
+                    "right": 330,
+                    "bottom": 339
+                },
+                "type": "text",
+                "text": null,
+                "re": null,
+                "data_field": "weight_unit",
+                "data_type": "str",
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "metricLabel",
+                "description": null,
+                "rect": {
+                    "left": 436,
+                    "top": 319,
+                    "right": 485,
+                    "bottom": 341
+                },
+                "type": "label",
+                "text": [
+                    "Metric"
+                ],
+                "re": null,
+                "data_field": null,
+                "data_type": null,
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "metricValue",
+                "description": null,
+                "rect": {
+                    "left": 417,
+                    "top": 319,
+                    "right": 434,
+                    "bottom": 341
+                },
+                "type": "check_box",
+                "text": null,
+                "re": null,
+                "data_field": "metric",
+                "data_type": "bool",
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "addInfoLabel",
+                "description": null,
+                "rect": {
+                    "left": 115,
+                    "top": 353,
+                    "right": 226,
+                    "bottom": 375
+                },
+                "type": "label",
+                "text": [
+                    "Additional info"
+                ],
+                "re": null,
+                "data_field": null,
+                "data_type": null,
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "addInfoValue",
+                "description": null,
+                "rect": {
+                    "left": 230,
+                    "top": 356,
+                    "right": 463,
+                    "bottom": 423
+                },
+                "type": "text",
+                "text": null,
+                "re": null,
+                "data_field": "additional_info",
+                "data_type": "str",
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "accNoLabel",
+                "description": null,
+                "rect": {
+                    "left": 620,
+                    "top": 60,
+                    "right": 732,
+                    "bottom": 84
+                },
+                "type": "label",
+                "text": [
+                    "Accession info"
+                ],
+                "re": null,
+                "data_field": null,
+                "data_type": null,
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "accNoValue",
+                "description": null,
+                "rect": {
+                    "left": 737,
+                    "top": 60,
+                    "right": 998,
+                    "bottom": 83
+                },
+                "type": "text",
+                "text": null,
+                "re": null,
+                "data_field": "accession_no",
+                "data_type": "str",
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "reqIdLabel",
+                "description": null,
+                "rect": {
+                    "left": 640,
+                    "top": 91,
+                    "right": 732,
+                    "bottom": 114
+                },
+                "type": "label",
+                "text": [
+                    "Accession info"
+                ],
+                "re": null,
+                "data_field": null,
+                "data_type": null,
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "reqIdValue",
+                "description": null,
+                "rect": {
+                    "left": 737,
+                    "top": 91,
+                    "right": 998,
+                    "bottom": 114
+                },
+                "type": "text",
+                "text": null,
+                "re": null,
+                "data_field": "request_id",
+                "data_type": "str",
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "patientPosLabel",
+                "description": null,
+                "rect": {
+                    "left": 595,
+                    "top": 220,
+                    "right": 732,
+                    "bottom": 242
+                },
+                "type": "label",
+                "text": [
+                    "Patient position"
+                ],
+                "re": null,
+                "data_field": null,
+                "data_type": null,
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "patientPosValue",
+                "description": null,
+                "rect": {
+                    "left": 737,
+                    "top": 220,
+                    "right": 973,
+                    "bottom": 242
+                },
+                "type": "text",
+                "text": null,
+                "re": null,
+                "data_field": "patient_position",
+                "data_type": "str",
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "instNameLabel",
+                "description": null,
+                "rect": {
+                    "left": 610,
+                    "top": 298,
+                    "right": 732,
+                    "bottom": 320
+                },
+                "type": "label",
+                "text": [
+                    "Institution name"
+                ],
+                "re": null,
+                "data_field": null,
+                "data_type": null,
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "instNameValue",
+                "description": null,
+                "rect": {
+                    "left": 737,
+                    "top": 298,
+                    "right": 973,
+                    "bottom": 320
+                },
+                "type": "text",
+                "text": null,
+                "re": null,
+                "data_field": "institution_name",
+                "data_type": "str",
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "perfPhysLabel",
+                "description": null,
+                "rect": {
+                    "left": 579,
+                    "top": 363,
+                    "right": 732,
+                    "bottom": 385
+                },
+                "type": "label",
+                "text": [
+                    "Performing physician"
+                ],
+                "re": null,
+                "data_field": null,
+                "data_type": null,
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "perfPhysValue",
+                "description": null,
+                "rect": {
+                    "left": 737,
+                    "top": 363,
+                    "right": 973,
+                    "bottom": 385
+                },
+                "type": "text",
+                "text": null,
+                "re": null,
+                "data_field": "performing_physician",
+                "data_type": "str",
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "operLabel",
+                "description": null,
+                "rect": {
+                    "left": 663,
+                    "top": 429,
+                    "right": 732,
+                    "bottom": 451
+                },
+                "type": "label",
+                "text": [
+                    "Operator"
+                ],
+                "re": null,
+                "data_field": null,
+                "data_type": null,
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "operValue",
+                "description": null,
+                "rect": {
+                    "left": 737,
+                    "top": 429,
+                    "right": 973,
+                    "bottom": 451
+                },
+                "type": "text",
+                "text": null,
+                "re": null,
+                "data_field": "operator",
+                "data_type": "str",
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "refPhysLabel",
+                "description": null,
+                "rect": {
+                    "left": 80,
+                    "top": 519,
+                    "right": 226,
+                    "bottom": 540
+                },
+                "type": "label",
+                "text": [
+                    "Referring physician"
+                ],
+                "re": null,
+                "data_field": null,
+                "data_type": null,
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "refPhysValue",
+                "description": null,
+                "rect": {
+                    "left": 230,
+                    "top": 519,
+                    "right": 462,
+                    "bottom": 540
+                },
+                "type": "text",
+                "text": null,
+                "re": null,
+                "data_field": "referring_physician",
+                "data_type": "str",
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "reqPhysLabel",
+                "description": null,
+                "rect": {
+                    "left": 65,
+                    "top": 553,
+                    "right": 226,
+                    "bottom": 574
+                },
+                "type": "label",
+                "text": [
+                    "Requesting physician"
+                ],
+                "re": null,
+                "data_field": null,
+                "data_type": null,
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "reqPhysValue",
+                "description": null,
+                "rect": {
+                    "left": 230,
+                    "top": 553,
+                    "right": 462,
+                    "bottom": 574
+                },
+                "type": "text",
+                "text": null,
+                "re": null,
+                "data_field": "requesting_physician",
+                "data_type": "str",
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "admissionIdLabel",
+                "description": null,
+                "rect": {
+                    "left": 120,
+                    "top": 586,
+                    "right": 226,
+                    "bottom": 607
+                },
+                "type": "label",
+                "text": [
+                    "Admission ID"
+                ],
+                "re": null,
+                "data_field": null,
+                "data_type": null,
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            },
+            {
+                "id": "admissionIdValue",
+                "description": null,
+                "rect": {
+                    "left": 230,
+                    "top": 586,
+                    "right": 487,
+                    "bottom": 607
+                },
+                "type": "text",
+                "text": null,
+                "re": null,
+                "data_field": "admission_id",
+                "data_type": "str",
+                "data_format": null,
+                "control_point": null,
+                "row_height": null,
+                "list_item_screen_type": null
+            }
+        ],
+        "relations": [
+            {
+                "id": "lastNameRel",
+                "description": null,
+                "from_id": "lastNameLabel",
+                "to_id": "lastNameValue"
+            },
+            {
+                "id": "firstNameRel",
+                "description": null,
+                "from_id": "firstNameLabel",
+                "to_id": "firstNameValue"
+            },
+            {
+                "id": "titleRel",
+                "description": null,
+                "from_id": "titleLabel",
+                "to_id": "titleValue"
+            },
+            {
+                "id": "patientIdRel",
+                "description": null,
+                "from_id": "patientIdLabel",
+                "to_id": "patientIdValue"
+            },
+            {
+                "id": "dobRel",
+                "description": null,
+                "from_id": "dobLabel",
+                "to_id": "dobValue"
+            },
+            {
+                "id": "sexRel",
+                "description": null,
+                "from_id": "sexLabel",
+                "to_id": "sexValue"
+            },
+            {
+                "id": "ageRel",
+                "description": null,
+                "from_id": "ageLabel",
+                "to_id": "ageValue"
+            },
+            {
+                "id": "ageUnitRel",
+                "description": null,
+                "from_id": "ageValue",
+                "to_id": "ageUnit"
+            },
+            {
+                "id": "heightRel",
+                "description": null,
+                "from_id": "heightLabel",
+                "to_id": "heightValue"
+            },
+            {
+                "id": "heightUnitRel",
+                "description": null,
+                "from_id": "heightValue",
+                "to_id": "heightUnit"
+            },
+            {
+                "id": "weightRel",
+                "description": null,
+                "from_id": "weightLabel",
+                "to_id": "weightValue"
+            },
+            {
+                "id": "weightUnitRel",
+                "description": null,
+                "from_id": "weightValue",
+                "to_id": "weightUnit"
+            },
+            {
+                "id": "metricRel",
+                "description": null,
+                "from_id": "metricLabel",
+                "to_id": "metricValue"
+            },
+            {
+                "id": "addInfoRel",
+                "description": null,
+                "from_id": "addInfoLabel",
+                "to_id": "addInfoValue"
+            },
+            {
+                "id": "accNoRel",
+                "description": null,
+                "from_id": "accNoLabel",
+                "to_id": "accNoValue"
+            },
+            {
+                "id": "reqIdRel",
+                "description": null,
+                "from_id": "reqIdLabel",
+                "to_id": "reqIdValue"
+            },
+            {
+                "id": "patientPosRel",
+                "description": null,
+                "from_id": "patientPosLabel",
+                "to_id": "patientPosValue"
+            },
+            {
+                "id": "instNameRel",
+                "description": null,
+                "from_id": "instNameLabel",
+                "to_id": "instNameValue"
+            },
+            {
+                "id": "perfPhysRel",
+                "description": null,
+                "from_id": "perfPhysLabel",
+                "to_id": "perfPhysValue"
+            },
+            {
+                "id": "operRel",
+                "description": null,
+                "from_id": "operLabel",
+                "to_id": "operValue"
+            },
+            {
+                "id": "reqPhysRel",
+                "description": null,
+                "from_id": "reqPhysLabel",
+                "to_id": "reqPhysValue"
+            },
+            {
+                "id": "admissionIdRel",
+                "description": null,
+                "from_id": "admissionIdLabel",
+                "to_id": "admissionIdValue"
+            }
+        ]
+    }
+}

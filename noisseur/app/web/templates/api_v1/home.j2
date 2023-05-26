@@ -1,0 +1,50 @@
+<html>
+<head>
+    <title>noisseur API v1</title>
+    <style>
+        INPUT[type=text] {
+            width: 400px
+        }
+
+        INPUT[type=submit] {
+            width: 69px
+        }
+
+        INPUT[type=file] {
+            width: 400px
+        }
+
+        .flabel {
+            width : 120px
+        }
+    </style>
+</head>
+
+<body>
+    <h1>noisseur API v1</h1>
+
+    <h3>get_screen_data</h3>
+    <form method="post" action="get_screen_data" enctype="multipart/form-data">
+        <input type="hidden" name="action" value="get_screen_data"/>
+        <table>
+            <tr>
+                <td class=flabel>Screen PNG:</td>
+                <td><input type="file" name="screen"/></td>
+            </tr>
+            <tr>
+                <td class=flabel style="text-align: center"><i>or</i></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class=flabel>Path:</td>
+                <td><input type="text" name="path"/></td>
+            </tr>
+            <tr>
+                <td class=flabel></td>
+                <td><input type="submit" value="Execute" /></td>
+            </tr>
+        </table>
+    </form><br>
+
+</body>
+</html>
