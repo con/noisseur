@@ -1,13 +1,16 @@
 import io
 import logging
 import logging.config
+
 import pyvips
 import PIL
 
 logger = logging.getLogger(__name__)
 
-class ImageProcessor:
+# increase pixels limit in PIL to 300M
+PIL.Image.MAX_IMAGE_PIXELS = 300000000
 
+class ImageProcessor:
     #: default output format
     OUT_VIPS_FORMAT = ".png"
     OUT_PIL_FORMAT = "PNG"
@@ -19,7 +22,7 @@ class ImageProcessor:
         logger.debug("border(...,{})".format(width))
         width = int(width)
         image = self.vips_load(path)
-        image2 = pyvips.Image.black(width*2 + image.width, width*2 + image.height, bands=image.bands)
+        image2 = pyvips.Image.black(width * 2 + image.width, width * 2 + image.height, bands=image.bands)
         image2 = pyvips.Image.invert(image2)
         image2 = pyvips.Image.insert(image2, image, width, width)
         return self.to_buffer(image2)
@@ -71,7 +74,7 @@ class ImageProcessor:
         lst = commands.split("|")
         res = path
         for cmd in lst:
-            logger.debug("cmd="+cmd)
+            logger.debug("cmd=" + cmd)
             args = []
             name = cmd
             i = cmd.find("(")
@@ -90,7 +93,7 @@ class ImageProcessor:
             elif len(args) == 3:
                 res = f(res, args[0], args[1], args[2])
             else:
-                assert "Unsupported, cmd.length="+cmd.length
+                assert "Unsupported, cmd.length=" + cmd.length
         return res
 
     def invert(self, path):
@@ -105,6 +108,31 @@ class ImageProcessor:
             image = pyvips.Image.invert(image)
         return self.to_buffer(image)
 
+    def prisma(self, path, scale_factor: int = 3, border: int = 30):
+        logger.debug("prisma(...)")
+        image = self.pil_load(path)
+        scale_factor = int(scale_factor)
+        border = int(border)
+
+        # 1) upscale image with no interpolation
+        w = image.width * scale_factor
+        h = image.height * scale_factor
+
+        image2 = image.resize((w, h), PIL.Image.NEAREST)
+
+        # 2) add image border
+        w = w + 2 * border
+        h = h + 2 * border
+        image3 = PIL.Image.new("RGB", (w, h), "white")
+        image3.paste(image2, (border, border))
+
+        # 3) convert image to b/w
+        # image4 = image3.convert("1")
+        gray_image = PIL.ImageOps.grayscale(image3)
+        threshold = 128
+        image4 = gray_image.point(lambda x: 0 if x < threshold else 255, '1')
+
+        return self.to_buffer(image4, 96 * scale_factor)
 
     def rotate(self, path, angle):
         logger.debug(f"rotate(.., angle={angle})")
@@ -112,11 +140,11 @@ class ImageProcessor:
         image = image.rot("d{}".format(angle))
         return self.to_buffer(image)
 
-    def scale(self, path, factor: float = 1.0):
-        logger.debug("scale(...,{})".format(factor))
+    def scale(self, path, factor: float = 1.0, kernel='mitchell'):
+        logger.debug(f"scale(...,factor={factor}, kernel={kernel})")
         factor = float(factor)
         image = self.vips_load(path)
-        image = pyvips.Image.resize(image, factor, kernel="mitchell")
+        image = pyvips.Image.resize(image, factor, kernel=kernel)
         return self.to_buffer(image)
 
     def sharpen(self, path):
@@ -137,13 +165,18 @@ class ImageProcessor:
         image = image.relational_const("moreeq", int(threshold))
         return self.to_buffer(image)
 
-    def to_buffer(self, image):
+    def to_buffer(self, image, resolution=None):
         if isinstance(image, pyvips.Image):
+            if resolution:
+                raise Exception("resolution is not supported yet in vips")
             data = image.write_to_buffer(self.OUT_VIPS_FORMAT)
             return data
         elif isinstance(image, PIL.Image.Image):
             b = io.BytesIO()
-            image.save(b, format=self.OUT_PIL_FORMAT)
+            if resolution:
+                image.save(b, format=self.OUT_PIL_FORMAT, dpi=(resolution, resolution))
+            else:
+                image.save(b, format=self.OUT_PIL_FORMAT)
             b.seek(0)
             data = b.read()
             return data

@@ -11,6 +11,8 @@ import pyvips
 from dataclasses import dataclass, field
 from dataclasses_json import dataclass_json
 from PIL import Image, ImageDraw, ImageFont
+
+from noisseur.cfg import AppConfig
 from noisseur.imgproc import ImageProcessor
 from noisseur.hocr import HocrParser
 from noisseur.model import ModelFactory, ModelService, ModelMatch, Model
@@ -36,6 +38,8 @@ class OcrScreenData:
 
 
 class OcrService:
+    WORD_CONFIDENCE_THRESHOLD: float = 40.0
+    AVG_CONFIDENCE_THRESHOLD: float = 97.0
 
     def __init__(self):
         self.imgProc = ImageProcessor()
@@ -50,13 +54,34 @@ class OcrService:
 
         image = Image.open(io.BytesIO(image))
 
+        rgb_image = Image.new("RGB", image.size)
+        rgb_image.paste(image)
+        image = rgb_image
+
         draw = ImageDraw.Draw(image)
-        font = ImageFont.truetype("Arial", 16)
+        font = None
+        try:
+            font = ImageFont.truetype(AppConfig.instance.HOCR_VISUALIZE_FONT,
+                                      size=AppConfig.instance.HOCR_VISUALIZE_FONT_SIZE)
+        except IOError as ex:
+            logger.error(f"Failed load font, use default one: {str(ex)}", ex)
+            font = ImageFont.load_default()
+
         for w in doc.words:
             rc = [w.bbox.left, w.bbox.top, w.bbox.right, w.bbox.bottom]
-            draw.rectangle(rc, outline="red")
-            txt = re.sub(r"[^a-zA-Z0-9]", " ", w.text)
-            draw.text((w.bbox.left, w.bbox.top), txt, font=font, fill="blue", align="center")
+            w_conf: float = w.x_wconf
+            avg_conf: float = w.calc_avg_x_conf()
+            color: str = "red"
+            if w_conf > OcrService.WORD_CONFIDENCE_THRESHOLD and avg_conf > OcrService.AVG_CONFIDENCE_THRESHOLD:
+                color = "green"
+            draw.rectangle(rc, outline=color)
+            txt = w.text
+            # txt = re.sub(r"[^a-zA-Z0-9]", " ", w.text)
+            # draw.fontmode = "1"
+            draw.text((w.bbox.left, w.bbox.top-21), txt, font=font, fill="blue", align="center")
+            draw.text((w.bbox.right-30, w.bbox.top - 14), f"w{int(w_conf)}/a{int(avg_conf)}",
+                      font=ImageFont.load_default(),
+                      fill=color, align="center")
 
         b = io.BytesIO()
         image.save(b, format="PNG")
@@ -82,21 +107,7 @@ class OcrService:
             img = self.imgProc.chain(path, chain)
             path = Image.open(io.BytesIO(img))
 
-        """
-        tessdataPath = os.path.join(AppConfig.instance.ROOT_PATH, "tessdata")
-        # --psm 8 --oem 1 -c lstm_choice_mode=0 -c tessedit_pageseg_mode=6
-        cfg = f" --tessdata-dir {tessdataPath}" \
-              " -l eng " \
-              " --psm 3 " \
-              " --oem 1 " \
-              " -c hocr_char_boxes=1" \
-              " -c lstm_choice_mode=0" \
-              " -c tessedit_pageseg_mode=3" \
-              " hocr"
-        """
-        cfg = f" -c hocr_char_boxes=1" \
-              " -c tessedit_char_whitelist='0123456789-.() {}/;:|_qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM'" \
-              " hocr"
+        cfg = AppConfig.instance.TESSERACT_HOCR_CONFIG
 
         logger.debug(f"cfg={cfg}")
         res = pytesseract.image_to_pdf_or_hocr(path, config=cfg, extension='hocr')
