@@ -11,6 +11,8 @@ import pyvips
 from dataclasses import dataclass, field
 from dataclasses_json import dataclass_json
 from PIL import Image, ImageDraw, ImageFont
+
+from noisseur.cfg import AppConfig
 from noisseur.imgproc import ImageProcessor
 from noisseur.hocr import HocrParser
 from noisseur.model import ModelFactory, ModelService, ModelMatch, Model
@@ -59,12 +61,11 @@ class OcrService:
         draw = ImageDraw.Draw(image)
         font = None
         try:
-            font = ImageFont.truetype("Arial", size=18)
-        except IOError:
-            try:
-                font = ImageFont.truetype("/usr/share/fonts/truetype/DejaVuSansMono.ttf", size=20)
-            except IOError:
-                font = ImageFont.load_default()
+            font = ImageFont.truetype(AppConfig.instance.HOCR_VISUALIZE_FONT,
+                                      size=AppConfig.instance.HOCR_VISUALIZE_FONT_SIZE)
+        except IOError as ex:
+            logger.error(f"Failed load font, use default one: {str(ex)}", ex)
+            font = ImageFont.load_default()
 
         for w in doc.words:
             rc = [w.bbox.left, w.bbox.top, w.bbox.right, w.bbox.bottom]
@@ -106,25 +107,7 @@ class OcrService:
             img = self.imgProc.chain(path, chain)
             path = Image.open(io.BytesIO(img))
 
-        """
-        tessdataPath = os.path.join(AppConfig.instance.ROOT_PATH, "tessdata")
-        # --psm 8 --oem 1 -c lstm_choice_mode=0 -c tessedit_pageseg_mode=6
-        cfg = f" --tessdata-dir {tessdataPath}" \
-              " -l eng " \
-              " --psm 3 " \
-              " --oem 1 " \
-              " -c hocr_char_boxes=1" \
-              " -c lstm_choice_mode=0" \
-              " -c tessedit_pageseg_mode=3" \
-              " hocr"
-        """
-        cfg = f" -c hocr_char_boxes=1" \
-              " -c tessedit_char_whitelist='0123456789-.() {}[]/;:|_qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM'" \
-              " --psm 6" \
-              " --oem 1" \
-              " --dpi 288" \
-              " -l eng " \
-              " hocr"
+        cfg = AppConfig.instance.TESSERACT_HOCR_CONFIG
 
         logger.debug(f"cfg={cfg}")
         res = pytesseract.image_to_pdf_or_hocr(path, config=cfg, extension='hocr')

@@ -127,6 +127,14 @@ class AppConfig:
         return self._rootPath
 
     @property
+    def HOCR_VISUALIZE_FONT(self):
+        return self._getStr(self.SECTION_NOISSEUR, "HOCR_VISUALIZE_FONT")
+
+    @property
+    def HOCR_VISUALIZE_FONT_SIZE(self):
+        return self._getInt(self.SECTION_NOISSEUR, "HOCR_VISUALIZE_FONT_SIZE")
+
+    @property
     def HOST_CONFIG_PATH(self):
         return self._hostConfigPath
 
@@ -137,6 +145,10 @@ class AppConfig:
     @property
     def MODEL_LIST(self):
         return self._getListStr(self.SECTION_NOISSEUR, "MODEL_LIST")
+
+    @property
+    def TESSERACT_HOCR_CONFIG(self):
+        return self._getStr(self.SECTION_NOISSEUR, "TESSERACT_HOCR_CONFIG")
 
     @property
     def noisseur(self) -> dict:
