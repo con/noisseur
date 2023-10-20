@@ -47,8 +47,12 @@ class ApiService:
             if not image and not path:
                 raise Exception("No input data specified (image or path)")
 
-            res2: OcrScreenData = OcrFactory.get_service().ocr_screen(image if image else path,
-                                    "scale(3.1)|sharpen|bw|border(30)", 3.1, 30)
+            res2: OcrScreenData = OcrFactory.get_service().ocr_screen(
+                image if image else path,
+                # "scale(3.0,nearest)|bw|border(30)",
+                "prisma(3,30)",
+                3.0, 0
+            )
             if res2:
                 res.host = res2.host
                 res.ts = res2.ts
@@ -63,7 +67,7 @@ class ApiService:
 
         finally:
             res.host = platform.node()
-            res.dt_ms = int((time.time() - dt)*1000)
+            res.dt_ms = int((time.time() - dt) * 1000)
 
         return res
 
@@ -73,6 +77,3 @@ class ApiFactory:
     @staticmethod
     def get_service() -> ApiService:
         return ApiService()
-
-
-

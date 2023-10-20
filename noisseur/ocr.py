@@ -36,6 +36,8 @@ class OcrScreenData:
 
 
 class OcrService:
+    WORD_CONFIDENCE_THRESHOLD: float = 40.0
+    AVG_CONFIDENCE_THRESHOLD: float = 97.0
 
     def __init__(self):
         self.imgProc = ImageProcessor()
@@ -50,13 +52,35 @@ class OcrService:
 
         image = Image.open(io.BytesIO(image))
 
+        rgb_image = Image.new("RGB", image.size)
+        rgb_image.paste(image)
+        image = rgb_image
+
         draw = ImageDraw.Draw(image)
-        font = ImageFont.truetype("Arial", 16)
+        font = None
+        try:
+            font = ImageFont.truetype("Arial", size=18)
+        except IOError:
+            try:
+                font = ImageFont.truetype("/usr/share/fonts/truetype/DejaVuSansMono.ttf", size=20)
+            except IOError:
+                font = ImageFont.load_default()
+
         for w in doc.words:
             rc = [w.bbox.left, w.bbox.top, w.bbox.right, w.bbox.bottom]
-            draw.rectangle(rc, outline="red")
-            txt = re.sub(r"[^a-zA-Z0-9]", " ", w.text)
-            draw.text((w.bbox.left, w.bbox.top), txt, font=font, fill="blue", align="center")
+            w_conf: float = w.x_wconf
+            avg_conf: float = w.calc_avg_x_conf()
+            color: str = "red"
+            if w_conf > OcrService.WORD_CONFIDENCE_THRESHOLD and avg_conf > OcrService.AVG_CONFIDENCE_THRESHOLD:
+                color = "green"
+            draw.rectangle(rc, outline=color)
+            txt = w.text
+            # txt = re.sub(r"[^a-zA-Z0-9]", " ", w.text)
+            # draw.fontmode = "1"
+            draw.text((w.bbox.left, w.bbox.top-21), txt, font=font, fill="blue", align="center")
+            draw.text((w.bbox.right-30, w.bbox.top - 14), f"w{int(w_conf)}/a{int(avg_conf)}",
+                      font=ImageFont.load_default(),
+                      fill=color, align="center")
 
         b = io.BytesIO()
         image.save(b, format="PNG")
@@ -95,7 +119,11 @@ class OcrService:
               " hocr"
         """
         cfg = f" -c hocr_char_boxes=1" \
-              " -c tessedit_char_whitelist='0123456789-.() {}/;:|_qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM'" \
+              " -c tessedit_char_whitelist='0123456789-.() {}[]/;:|_qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM'" \
+              " --psm 6" \
+              " --oem 1" \
+              " --dpi 288" \
+              " -l eng " \
               " hocr"
 
         logger.debug(f"cfg={cfg}")

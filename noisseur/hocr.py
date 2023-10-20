@@ -100,6 +100,12 @@ class HocrParser:
         def add_glyph(self, o):
             self.glyphs.append(o)
 
+        def calc_avg_x_conf(self):
+            f: float = sum(glyph.x_conf for glyph in self.glyphs)
+            if len(self.glyphs)>0:
+                f = f / len(self.glyphs)
+            return f
+
     class OcrxCinfo(OcrNode):
         def __init__(self):
             self.x_bboxes = None  # bbox
