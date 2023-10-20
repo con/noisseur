@@ -148,7 +148,8 @@ class AppConfig:
 
     @property
     def TESSERACT_HOCR_CONFIG(self):
-        return self._getStr(self.SECTION_NOISSEUR, "TESSERACT_HOCR_CONFIG")
+        return (self._getStr(self.SECTION_NOISSEUR, "TESSERACT_HOCR_CONFIG").
+                replace("{@ROOT_PATH}", self.ROOT_PATH))
 
     @property
     def noisseur(self) -> dict:
