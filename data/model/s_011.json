@@ -1,7 +1,7 @@
 {
     "id": "model011",
     "description": "List item renderer",
-    "image_path": "data/s_011.png",
+    "image_path": "data/model/s_011.png",
     "screen_type": "dot-cockpit-editor-list_1",
     "form": {
         "id": "form1",

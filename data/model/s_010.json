@@ -1,7 +1,7 @@
 {
     "id": "model010",
     "description": "Dot Cockpit Program Editor Screen",
-    "image_path": "data/s_010.png",
+    "image_path": "data/model/s_010.png",
     "screen_type": "dot-cockpit-editor",
     "form": {
         "id": "form1",

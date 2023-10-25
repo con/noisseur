@@ -1,7 +1,7 @@
 {
     "id": "model007",
     "description": "Model One",
-    "image_path": "data/s_007.png",
+    "image_path": "data/model/s_007.png",
     "screen_type": "patient-registration",
     "form": {
         "id": "form1",
