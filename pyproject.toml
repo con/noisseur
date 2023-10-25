@@ -5,16 +5,18 @@ description = ""
 authors = ["Vadim Melnik <vmelnik@docsultant.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
-Flask = "2.2.2"
-pytesseract = "0.3.10"
-pyvips = "2.2.1"
-beautifulsoup4 = "4.11.1"
-dataclasses_json = "0.5.7"
-flask-restx = "1.0.6"
+python = "^3.10"
+Flask = "^2.2.2"
+pytesseract = "^0.3.10"
+pyvips = "^2.2.1"
+beautifulsoup4 = "^4.11.1"
+dataclasses_json = "^0.5.7"
+flask-restx = "^1.0.6"
+click = "^8.1.7"
+pyenchant = "^3.2.2"
 
 [tool.poetry.dev-dependencies]
-pytest = "6.2.5"
+pytest = "^6.2.5"
 
 [build-system]
 requires = ["poetry>=1.0"]
@@ -33,7 +35,7 @@ build-backend = "poetry.masonry.api"
 
 srv = "noisseur.srv:main"
 test_model = "noisseur.tests.test_model:test_1"
-ocr_accuracy = "tools.ocr_accuracy:main"
+screen_data_accuracy = "tools.screen_data_accuracy:main"
 
 [tool.codespell]
 skip = '.git,*.pdf,*.svg'
