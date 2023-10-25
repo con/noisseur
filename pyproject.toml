@@ -33,3 +33,9 @@ build-backend = "poetry.masonry.api"
 
 srv = "noisseur.srv:main"
 test_model = "noisseur.tests.test_model:test_1"
+ocr_accuracy = "tools.ocr_accuracy:main"
+
+[tool.codespell]
+skip = '.git,*.pdf,*.svg'
+#
+# ignore-words-list = ''
