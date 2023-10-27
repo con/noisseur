@@ -185,7 +185,7 @@ def ocr_screen():
 def test_font():
     logger.debug("test_font")
 
-    image = Image.open(os.path.join(AppConfig.instance.ROOT_PATH, "data/s_009.png"))
+    image = Image.open(os.path.join(AppConfig.instance.ROOT_PATH, "data/sample/s_009.png"))
     image = image.convert("RGB")
     width, height = image.size
 

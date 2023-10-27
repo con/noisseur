@@ -13,7 +13,7 @@ def generate_model_007():
     model.id = "model007"
     model.screen_type = "patient-registration"
     model.description = "Model One"
-    model.image_path = "data/s_007.png"
+    model.image_path = "data/model/s_007.png"
 
     form = Form()
     form.id = "form1"
@@ -536,7 +536,7 @@ def generate_model_007():
     logger.debug("json=\n")
     logger.debug(s)
 
-    with open(os.path.join(AppConfig.instance.ROOT_PATH, "data/s_007.json"), 'w') as f:
+    with open(os.path.join(AppConfig.instance.ROOT_PATH, "data/model/s_007.json"), 'w') as f:
         f.write(s)
 
     model2 = Model.from_json(s)
@@ -547,7 +547,7 @@ def generate_model_010():
     model.id = "model010"
     model.screen_type = "dot-cockpit-editor"
     model.description = "Dot Cockpit Program Editor Screen"
-    model.image_path = "data/s_010.png"
+    model.image_path = "data/model/s_010.png"
 
     form = Form()
     form.id = "form1"
@@ -581,7 +581,7 @@ def generate_model_010():
     logger.debug("json=\n")
     logger.debug(s)
 
-    with open(os.path.join(AppConfig.instance.ROOT_PATH, "data/s_010.json"), 'w') as f:
+    with open(os.path.join(AppConfig.instance.ROOT_PATH, "data/model/s_010.json"), 'w') as f:
         f.write(s)
 
     model2 = Model.from_json(s)
@@ -592,7 +592,7 @@ def generate_model_011():
     model.id = "model011"
     model.screen_type = "dot-cockpit-editor-list_1"
     model.description = "List item renderer"
-    model.image_path = "data/s_011.png"
+    model.image_path = "data/model/s_011.png"
 
     form = Form()
     form.id = "form1"
@@ -642,7 +642,7 @@ def generate_model_011():
     logger.debug("json=\n")
     logger.debug(s)
 
-    with open(os.path.join(AppConfig.instance.ROOT_PATH, "data/s_011.json"), 'w') as f:
+    with open(os.path.join(AppConfig.instance.ROOT_PATH, "data/model/s_011.json"), 'w') as f:
         f.write(s)
 
     model2 = Model.from_json(s)

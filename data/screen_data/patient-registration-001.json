@@ -1,0 +1,28 @@
+{
+  "type": "patient-registration",
+  "data": {
+    "last_name": "SID000XXX",
+    "first_name": null,
+    "title": null,
+    "patient_id": "SID000XXX",
+    "date_of_birth": "1/1/1990",
+    "sex": "Other",
+    "age": "28",
+    "age_unit": "Years",
+    "height": "5",
+    "height_unit": "ft",
+    "weight": "103",
+    "weight_unit": "lbs",
+    "metric": null,
+    "additional_info": null,
+    "accession_no": "A000XXX",
+    "request_id": null,
+    "patient_position": "Head First - Supine",
+    "institution_name": null,
+    "performing_physician": null,
+    "operator": null,
+    "referring_physician": null,
+    "requesting_physician": null,
+    "admission_id": null
+  }
+}
