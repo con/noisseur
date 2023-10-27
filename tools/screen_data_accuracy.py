@@ -97,6 +97,9 @@ def validate_screen(noisseur_api_url: str, upload_image: bool,
     c_field: int = 0
     c_strict_match: int = 0
 
+    c_nn_field: int = 0
+    c_nn_strict_match: int = 0
+
     if response.status_code == 200:
         res = response.json()
         model_type1 = res["type"]
@@ -113,11 +116,15 @@ def validate_screen(noisseur_api_url: str, upload_image: bool,
             for key, val0 in model_data0.items():
                 c_all += 1
                 c_field += 1
+                if val0:
+                    c_nn_field += 1
                 if key in model_data1:
                     val1 = model_data1[key]
                     if val1 == val0:
                         c_match += 1.0
                         c_strict_match += 1
+                        if val0:
+                            c_nn_strict_match += 1
                         if verbose:
                             click.echo(f"    data match [{key},"
                                        f" 100.00%] {val0} / {val1}")
@@ -138,6 +145,8 @@ def validate_screen(noisseur_api_url: str, upload_image: bool,
     accuracy = int(100 * accuracy) / 100.0
     strict_match: float = c_strict_match * 100.0 / c_field if c_field > 0 else 0.0
     strict_match = int(100 * strict_match) / 100.0
+    nn_strict_match: float = c_nn_strict_match * 100.0 / c_nn_field if c_nn_field > 0 else 0.0
+    nn_strict_match = int(100 * nn_strict_match) / 100.0
 
     if verbose:
         click.echo(f"    strict match data count={c_strict_match}, all fields count={c_field}")
@@ -145,6 +154,7 @@ def validate_screen(noisseur_api_url: str, upload_image: bool,
     return {
         "accuracy": accuracy,
         "strict_match": strict_match,
+        "nn_strict_match": nn_strict_match,
         "time_sec": dt
     }
 
@@ -188,6 +198,7 @@ def main(noisseur_api_url, path_data, upload_image, max_count, verbose):
     total_count: int = 0
     total_accuracy: float = 0.0
     total_strict_match: float = 0.0
+    total_nn_strict_match: float = 0.0
     total_time_sec: float = 0.0
 
     for index, image in enumerate(images):
@@ -201,25 +212,30 @@ def main(noisseur_api_url, path_data, upload_image, max_count, verbose):
                               path_image, path_json, bool(verbose))
         accuracy = res["accuracy"]
         strict_match = res["strict_match"]
+        nn_strict_match = res["nn_strict_match"]
         time_sec = res["time_sec"]
-        click.echo(f"    accuracy={str(accuracy)}%, strict_match={str(strict_match)}%, time={time_sec} sec")
+        click.echo(f"    accuracy={str(accuracy)}%, strict_match={str(strict_match)}%, "
+                   f"nn_strict_match={str(nn_strict_match)}% time={time_sec} sec")
 
         total_count += 1
         total_accuracy += accuracy
         total_strict_match += strict_match
+        total_nn_strict_match += nn_strict_match
         total_time_sec += time_sec
 
     click.echo("--------------------------------------")
-    click.echo(f"Total screen count   : {total_count}")
-    click.echo(f"Total time           : {total_time_sec:0.3f} sec")
+    click.echo(f"Total screen count      : {total_count}")
+    click.echo(f"Total time              : {total_time_sec:0.3f} sec")
 
     if total_count > 0:
         avg_accuracy = total_accuracy / total_count
         avg_strict_match = total_strict_match / total_count
+        avg_nn_strict_match = total_nn_strict_match / total_count
         avg_time = total_time_sec / total_count
-        click.echo(f"Average accuracy     : {avg_accuracy:0.2f}%")
-        click.echo(f"Average strict_match : {avg_strict_match:0.2f}%")
-        click.echo(f"Average time         : {avg_time:0.3f} sec")
+        click.echo(f"Average accuracy        : {avg_accuracy:0.2f}%")
+        click.echo(f"Average strict_match    : {avg_strict_match:0.2f}%")
+        click.echo(f"Average nn_strict_match : {avg_nn_strict_match:0.2f}%")
+        click.echo(f"Average time            : {avg_time:0.3f} sec")
 
     click.echo("--------------------------------------")
     click.echo("Done.")
