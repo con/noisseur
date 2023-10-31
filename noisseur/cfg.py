@@ -147,6 +147,10 @@ class AppConfig:
         return self._getListStr(self.SECTION_NOISSEUR, "MODEL_LIST")
 
     @property
+    def OCR(self):
+        return self._getStr(self.SECTION_NOISSEUR, "OCR")
+
+    @property
     def TESSERACT_HOCR_CONFIG(self):
         return (self._getStr(self.SECTION_NOISSEUR, "TESSERACT_HOCR_CONFIG").
                 replace("{@ROOT_PATH}", self.ROOT_PATH))

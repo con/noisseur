@@ -14,6 +14,17 @@ dataclasses_json = "^0.5.7"
 flask-restx = "^1.0.6"
 click = "^8.1.7"
 pyenchant = "^3.2.2"
+lxml = "^4.9.3"
+# >> easyoscr dependencies start
+easyocr = "^1.7.1"
+opencv-python = "^4.8.1.78"
+torch = "^2.1.0"
+torchvision = "^0.16.0"
+torchaudio = "^2.1.0"
+lmdb = "*"
+nltk = "*"
+natsort ="*"
+# << easyoscr dependencies end
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
