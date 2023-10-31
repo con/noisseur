@@ -202,9 +202,10 @@ class EasyOcrService(OcrService):
         logger.debug(f'ocr_hocr(path={path})')
         if chain:
             img = self.imgProc.chain(path, chain)
-            path = Image.open(io.BytesIO(img))
         else:
-            raise Exception("Empty chain is not supported")
+            img = self.imgProc.to_buffer(self.imgProc.pil_load(path))
+
+        path = Image.open(io.BytesIO(img))
 
         logger.debug("invoke easyocr")
         res = self._reader.readtext(img, detail=1)
