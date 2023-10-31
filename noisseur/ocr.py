@@ -203,7 +203,10 @@ class EasyOcrService(OcrService):
         if chain:
             img = self.imgProc.chain(path, chain)
         else:
-            img = self.imgProc.to_buffer(self.imgProc.pil_load(path))
+            if isinstance(path, str):
+                img = self.imgProc.to_buffer(self.imgProc.pil_load(path))
+            else:
+                img = self.imgProc.to_buffer(path)
 
         path = Image.open(io.BytesIO(img))
 
