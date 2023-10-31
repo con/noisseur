@@ -213,7 +213,7 @@ class EasyOcrService(OcrService):
         logger.debug("invoke easyocr")
         res = self._reader.readtext(img, detail=1)
 
-        logger.debug("done easyocr")
+        logger.debug(f"done easyocr: {str(res)}")
         width, height = path.size
         hocr = self._to_hocr(res, width, height)
 
