@@ -10,11 +10,12 @@ logger = logging.getLogger(__name__)
 class HocrParser:
 
     class Document:
-        def __init__(self):
+        def __init__(self, strip_word_whitespaces: bool = True):
             self.lines = []
             self.pages = []
             self.hocr = None  # str
             self.words = []
+            self.strip_word_whitespaces = strip_word_whitespaces
 
         def add_page(self, page) -> None:
             self.pages.append(page)
@@ -128,9 +129,9 @@ class HocrParser:
 
         return s[0]
 
-    def parse(self, s: str) -> Document:
+    def parse(self, s: str, strip_word_whitespaces: bool = True) -> Document:
         logger.debug("parse(...)")
-        doc = HocrParser.Document()
+        doc = HocrParser.Document(strip_word_whitespaces=strip_word_whitespaces)
         doc.hocr = s
         d = BeautifulSoup(s, "html.parser")
         self.parse_page(doc, d)
@@ -305,7 +306,10 @@ class HocrParser:
             o = HocrParser.OcrxWord()
             self.parse_node(o, node2)
             o.x_wconf = self.parse_float_tag(o, "x_wconf")
-            o.text = str(node2.get_text()).replace("\n", "").replace(" ", "")
+            if doc.strip_word_whitespaces:
+                o.text = str(node2.get_text()).replace("\n", "").replace(" ", "")
+            else:
+                o.text = str(node2.get_text())
             self.parse_cinfo(doc, owner, o, node2)
             owner.add_word(o)
             doc.add_word(o)
