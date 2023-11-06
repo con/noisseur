@@ -274,10 +274,10 @@ class HocrParser:
         if "bbox" in o.mapTitle.keys():
             a = o.mapTitle["bbox"]
             if len(a) >= 5:
-                o.bbox.left = int(a[1])
-                o.bbox.top = int(a[2])
-                o.bbox.right = int(a[3])
-                o.bbox.bottom = int(a[4])
+                o.bbox.left = int(round(float(a[1])))
+                o.bbox.top = int(round(float(a[2])))
+                o.bbox.right = int(round(float(a[3])))
+                o.bbox.bottom = int(round(float(a[4])))
 
     def parse_page(self, doc: Document, node: bs4.Tag) -> None:
         pages = node.find_all(class_="ocr_page")

@@ -255,10 +255,10 @@ class EasyOcrService(OcrService):
 
         for i, (bbox, text, conf) in enumerate(res):
             lt, rt, rb, lb = bbox
-            x = lt[0]
-            y = lt[1]
-            w = rb[0] - x
-            h = rb[1] - y
+            x = int(round(float(lt[0])))
+            y = int(round(float(lt[1])))
+            w = int(round(float(rb[0]))) - x
+            h = int(round(float(rb[1]))) - y
             #
             span_line_1 = etree.SubElement(p_par_1_1, 'span')
             span_line_1.set('class', 'ocr_line')
