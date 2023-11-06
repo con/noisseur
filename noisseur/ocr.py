@@ -218,7 +218,7 @@ class EasyOcrService(OcrService):
         hocr = self._to_hocr(res, width, height)
 
         hp = HocrParser()
-        doc = hp.parse(hocr)
+        doc = hp.parse(hocr, strip_word_whitespaces=False)
         return doc
 
     def _to_hocr(self, res, img_width: int, img_height: int) -> str:
