@@ -11,6 +11,9 @@ import pyvips
 from dataclasses import dataclass, field
 from dataclasses_json import dataclass_json
 from PIL import Image, ImageDraw, ImageFont
+from lxml import etree
+from lxml.etree import QName
+from easyocr import Reader
 
 from noisseur.cfg import AppConfig
 from noisseur.imgproc import ImageProcessor
@@ -18,6 +21,7 @@ from noisseur.hocr import HocrParser
 from noisseur.model import ModelFactory, ModelService, ModelMatch, Model
 
 logger = logging.getLogger(__name__)
+
 
 @dataclass_json
 @dataclass
@@ -78,8 +82,8 @@ class OcrService:
             txt = w.text
             # txt = re.sub(r"[^a-zA-Z0-9]", " ", w.text)
             # draw.fontmode = "1"
-            draw.text((w.bbox.left, w.bbox.top-21), txt, font=font, fill="blue", align="center")
-            draw.text((w.bbox.right-30, w.bbox.top - 14), f"w{int(w_conf)}/a{int(avg_conf)}",
+            draw.text((w.bbox.left, w.bbox.top - 21), txt, font=font, fill="blue", align="center")
+            draw.text((w.bbox.right - 30, w.bbox.top - 14), f"w{int(w_conf)}/a{int(avg_conf)}",
                       font=ImageFont.load_default(),
                       fill=color, align="center")
 
@@ -97,7 +101,7 @@ class OcrService:
             path = Image.open(io.BytesIO(img))
 
         res = pytesseract.image_to_string(path)
-        logger.debug("-> "+res)
+        logger.debug("-> " + res)
         return res
 
     def ocr_hocr(self, path, chain) -> HocrParser.Document:
@@ -157,8 +161,8 @@ class OcrService:
 
         if match:
             logger.debug("model found by caption")
-            match.offset_x = int(match.offset_x*scale)
-            match.offset_y = int(match.offset_y*scale)
+            match.offset_x = int(match.offset_x * scale)
+            match.offset_y = int(match.offset_y * scale)
             match.scale_x = scale
             match.scale_y = scale
         else:
@@ -179,14 +183,112 @@ class OcrService:
         osd.type = dad["type"]
         osd.items = dad["items"]
         osd.data = dad["data"]
-        osd.dt_ms = int((time.time() - dt)*1000)
+        osd.dt_ms = int((time.time() - dt) * 1000)
         if osd.type:
             osd.success = True
         return osd
 
-
     def tesseract_version(self):
         return "tesseract {}".format(pytesseract.get_tesseract_version())
+
+
+class EasyOcrService(OcrService):
+    def __init__(self):
+        super().__init__()
+        logger.debug("EasyOcrService()")
+        self._reader = Reader(['en'], gpu=True)
+
+    def ocr_hocr(self, path, chain) -> HocrParser.Document:
+        logger.debug(f'ocr_hocr(path={path})')
+        if chain:
+            img = self.imgProc.chain(path, chain)
+        else:
+            if isinstance(path, str):
+                img = self.imgProc.to_buffer(self.imgProc.pil_load(path))
+            else:
+                img = self.imgProc.to_buffer(path)
+
+        path = Image.open(io.BytesIO(img))
+
+        logger.debug("invoke easyocr")
+        res = self._reader.readtext(img, detail=1)
+
+        logger.debug(f"done easyocr: {str(res)}")
+        width, height = path.size
+        hocr = self._to_hocr(res, width, height)
+
+        hp = HocrParser()
+        doc = hp.parse(hocr, strip_word_whitespaces=False)
+        return doc
+
+    def _to_hocr(self, res, img_width: int, img_height: int) -> str:
+        root = etree.Element('html', xmlns="http://www.w3.org/1999/xhtml", lang="en")
+        root.set(QName("http://www.w3.org/XML/1998/namespace", "lang"), 'en')
+
+        head = etree.SubElement(root, 'head')
+
+        title = etree.SubElement(head, 'title')
+        title.text = ''
+
+        etree.SubElement(head, 'meta', http_equiv="Content-Type", content="text/html;charset=utf-8")
+        etree.SubElement(head, 'meta', name="ocr-system", content="easyocr")
+        etree.SubElement(head, 'meta', name="ocr-capabilities",
+                         content="ocr_page ocr_carea ocr_par ocr_line ocrx_word ocrp_wconf")
+
+        body = etree.SubElement(root, 'body')
+
+        div_page_1 = etree.SubElement(body, 'div')
+        div_page_1.set('class', 'ocr_page')
+        div_page_1.set('id', 'page_1')
+        div_page_1.set('title', f'image "input.PNG"; bbox 0 0 {img_width} {img_height}; ppageno 0')
+
+        div_block_1_1 = etree.SubElement(div_page_1, 'div')
+        div_block_1_1.set('class', 'ocr_carea')
+        div_block_1_1.set('id', 'block_1_1')
+        div_block_1_1.set('title', f'bbox 0 0 {img_width} {img_height}')
+
+        p_par_1_1 = etree.SubElement(div_block_1_1, 'p')
+        p_par_1_1.set('class', 'ocr_par')
+        p_par_1_1.set('id', 'par_1_1')
+        p_par_1_1.set('lang', 'prisma')
+        p_par_1_1.set('title', f'bbox 0 0 {img_width} {img_height}')
+
+        for i, (bbox, text, conf) in enumerate(res):
+            lt, rt, rb, lb = bbox
+            x = int(round(float(lt[0])))
+            y = int(round(float(lt[1])))
+            w = int(round(float(rb[0]))) - x
+            h = int(round(float(rb[1]))) - y
+            #
+            span_line_1 = etree.SubElement(p_par_1_1, 'span')
+            span_line_1.set('class', 'ocr_line')
+            span_line_1.set('id', f'line_1_{(i+1)}')
+            span_line_1.set('title', f'bbox {x} {y} {x+w} {y+h};')
+            # title='bbox 51 45 3108 99; baseline 0 -9; x_size 54; x_descenders 9; x_ascenders 18'
+
+            span_word_1 = etree.SubElement(span_line_1, 'span')
+            span_word_1.set('class', 'ocrx_word')
+            span_word_1.set('id', f'word_1_{(i+1)}')
+            span_word_1.set('title', f'bbox {x} {y} {x+w} {y+h}; x_wconf {conf}')
+            span_word_1.text = text
+
+
+        tree = etree.ElementTree(root)
+        s = etree.tostring(tree,
+                           doctype='<!DOCTYPE html PUBLIC '
+                                   '"-//W3C//DTD XHTML 1.0 Transitional//EN" '
+                                   '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">',
+                           encoding='utf-8',
+                           xml_declaration=True,
+                           pretty_print=True,
+                           ).decode("utf-8")
+        return s
+
+
+class TesseractOcrService(OcrService):
+    def __init__(self):
+        super().__init__()
+        logger.debug("TesseractOcrService()")
 
 
 class OcrFactory:
@@ -194,7 +296,12 @@ class OcrFactory:
 
     @staticmethod
     def init() -> None:
-        svc = OcrService()
+        if AppConfig.instance.OCR == "tesseract":
+            svc = TesseractOcrService()
+        elif AppConfig.instance.OCR == "easyocr":
+            svc = EasyOcrService()
+        else:
+            raise Exception(f"Unknown ocr: {AppConfig.instance.OCR}")
         OcrFactory.__ocr_service = svc
 
     @staticmethod
@@ -203,5 +310,4 @@ class OcrFactory:
             OcrFactory.init()
         return OcrFactory.__ocr_service
 
-
-OcrFactory.init()
+# OcrFactory.init()

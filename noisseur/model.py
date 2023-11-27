@@ -298,6 +298,9 @@ class ModelService:
                             rc: Rect = None
                             logger.debug(f"range: {str(i)}, {str(i+l)}")
                             for k in range(i, i+l):
+                                if k >= len(line.words):
+                                    logger.debug(f"skip k={k}")
+                                    continue
                                 word = line.words[k]
                                 logger.debug(f"word[{str(k)}] = {word.text}")
                                 rc2: Rect = Rect.from_bbox(word.bbox)

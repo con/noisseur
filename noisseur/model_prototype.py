@@ -25,7 +25,7 @@ def generate_model_007():
     item.id = "title"
     item.type = ItemType.CAPTION
     item.rect = Rect(0, 0, 170, 30)
-    item.text = ["Patient Registration", "tient Registration"]
+    item.text = ["Patient Registration", "tient Registration", "Palient Registration"]
     item.control_point = ControlPointType.TOP_LEFT
     form.items.append(item)
 
